@@ -1,1 +1,1 @@
-export { getCards } from './cards';
+export { getCards } from './cardActions';

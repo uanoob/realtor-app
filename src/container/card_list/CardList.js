@@ -1,25 +1,37 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import CardItem from '../../layout/card/CardItem';
+import { getCards } from '../../store/actions';
 
-export class CardList extends Component {
-  static propTypes = {
-    prop: PropTypes,
-  };
+class CardList extends Component {
+  componentDidMount() {
+    this.props.getCards();
+  }
 
   render() {
+    const { cards } = this.props;
+    console.log(cards);
     return (
-      <div>
-        <CardItem />
+      <div className="row">
+        {cards.map(card => (
+          <CardItem key={card.id} {...card} />
+        ))}
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({});
+CardList.propTypes = {
+  cards: PropTypes.array.isRequired,
+  getCards: PropTypes.func.isRequired,
+};
 
-const mapDispatchToProps = {};
+const mapStateToProps = state => ({
+  cards: state.card.cards,
+});
+
+const mapDispatchToProps = { getCards };
 
 export default connect(
   mapStateToProps,

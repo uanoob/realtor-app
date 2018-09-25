@@ -6,10 +6,7 @@ import FilterRooms from '../../layout/filter/FilterRooms';
 import FilterPrice from '../../layout/filter/FilterPrice';
 import FilterRating from '../../layout/filter/FilterRating';
 
-export class FilterList extends Component {
-  static propTypes = {
-    prop: PropTypes,
-  };
+class FilterList extends Component {
 
   render() {
     return (

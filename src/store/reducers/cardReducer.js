@@ -1,9 +1,13 @@
 import { GET_CARDS } from '../actions/types';
 
-export default function (state = {}, action) {
+const initialState = {
+  cards: [],
+};
+
+export default function(state = initialState, action) {
   switch (action.type) {
     case GET_CARDS:
-      return { ...state, list: action.payload };
+      return { ...state, cards: action.payload };
     default:
       return state;
   }

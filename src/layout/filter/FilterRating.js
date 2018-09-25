@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 const FilterRating = () => {
   return (
     <div>
-      FilterRating
+      <h2>Рейтинг</h2>
     </div>
   )
 }
