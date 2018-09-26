@@ -4,7 +4,10 @@ import { Provider } from 'react-redux';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import store from './store/store';
+import Header from './layout/header/Header';
 import Home from './layout/home/Home';
+import About from './layout/about/About';
+import NotFound from './layout/notFound/NotFound';
 
 class App extends Component {
   render() {
@@ -12,9 +15,12 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
+            <Header branding="REALTOR" />
             <div className="container">
               <Switch>
-                <Route path="/" component={Home} />
+                <Route exact path="/" component={Home} />
+                <Route exact path="/about" component={About} />
+                <Route component={NotFound} />
               </Switch>
             </div>
           </div>
