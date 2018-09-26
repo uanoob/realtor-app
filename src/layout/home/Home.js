@@ -6,10 +6,10 @@ const Home = () => {
   return (
     <div className="container">
       <div className="row">
-        <div className="col-4">
+        <div className="col-sm-12 col-md-4">
           <FilterList />
         </div>
-        <div className="col-8">
+        <div className="col-sm-12 col-md-8">
           <CardList />
         </div>
       </div>

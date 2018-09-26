@@ -1,20 +1,23 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 const filterCurrency = () => {
   return (
-    <div>
-      <h2>Валюта</h2>
-      <div className="btn-group" role="group" aria-label="Basic example">
-        <button type="button" className="btn btn-secondary">
+    <div className="mx-3 mb-3">
+      <h4>Валюта</h4>
+      <div className="btn-group btn-group-toggle" data-toggle="buttons">
+        <label className="btn btn-outline-info active">
+          <input type="radio" name="options" id="currency-uan" />
           UAN
-        </button>
-        <button type="button" className="btn btn-secondary">
+        </label>
+        <label className="btn btn-outline-info">
+          <input type="radio" name="options" id="currency-usd" />
           USD
-        </button>
-        <button type="button" className="btn btn-secondary">
+        </label>
+        <label className="btn btn-outline-info">
+          <input type="radio" name="options" id="currency-eur" />
           EUR
-        </button>
+        </label>
       </div>
     </div>
   );

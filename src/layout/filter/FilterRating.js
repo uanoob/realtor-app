@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 
 const FilterRating = () => {
   return (
-    <div>
-      <h2>Рейтинг</h2>
+    <div className="mx-3 mb-3">
+      <h4>Рейтинг</h4>
     </div>
   )
 }

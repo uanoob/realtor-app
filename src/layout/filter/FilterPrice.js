@@ -1,34 +1,38 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 const filterPrice = () => {
   return (
-    <div>
-      <h2>Цена</h2>
-      <form className="form-inline">
-      <div className="form-group mx-sm-3 mb-2">
-          <label for="price-min">
-            От 
+    <div className="mx-3 mb-3">
+      <h4>Цена</h4>
+      <div className="form-row">
+        <div className="form-group row mx-3">
+          <label htmlFor="price-from" className="col-form-label">
+            От
           </label>
-          <input
-            type="number"
-            className="form-control"
-            id="price-min"
-            placeholder=""
-          />
+          <div className="col">
+            <input
+              type="text"
+              className="form-control"
+              id="price-from"
+              placeholder=""
+            />
+          </div>
         </div>
-        <div className="form-group mx-sm-3 mb-2">
-          <label for="price-max">
-            До 
+        <div className="form-group row mx-3">
+          <label htmlFor="price-to" className="col-form-label">
+            До
           </label>
-          <input
-            type="number"
-            className="form-control"
-            id="price-max"
-            placeholder=""
-          />
+          <div className="col">
+            <input
+              type="text"
+              className="form-control"
+              id="price-to"
+              placeholder=""
+            />
+          </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

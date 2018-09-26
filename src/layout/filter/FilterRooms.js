@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 const filterRooms = () => {
   return (
-    <div>
-      <h2>Количество комнат</h2>
+    <div className="mx-3 mb-3">
+      <h4>Количество комнат</h4>
       <div className="custom-control custom-radio">
         <input
           type="radio"
@@ -12,7 +12,7 @@ const filterRooms = () => {
           name="customRadio"
           className="custom-control-input"
         />
-        <label className="custom-control-label" for="customRadio1">
+        <label className="custom-control-label" htmlFor="customRadio1">
           Все
         </label>
       </div>
@@ -23,7 +23,7 @@ const filterRooms = () => {
           name="customRadio"
           className="custom-control-input"
         />
-        <label className="custom-control-label" for="customRadio2">
+        <label className="custom-control-label" htmlFor="customRadio2">
           1 комната
         </label>
       </div>
@@ -34,7 +34,7 @@ const filterRooms = () => {
           name="customRadio"
           className="custom-control-input"
         />
-        <label className="custom-control-label" for="customRadio3">
+        <label className="custom-control-label" htmlFor="customRadio3">
           2 комнаты
         </label>
       </div>
@@ -45,7 +45,7 @@ const filterRooms = () => {
           name="customRadio"
           className="custom-control-input"
         />
-        <label className="custom-control-label" for="customRadio4">
+        <label className="custom-control-label" htmlFor="customRadio4">
           3 комнаты
         </label>
       </div>
