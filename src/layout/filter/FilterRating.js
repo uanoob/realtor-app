@@ -1,17 +1,21 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+// import PropTypes from 'prop-types'
 
 const FilterRating = () => {
   return (
-    <div className="mx-3 mb-3">
+    <div className="mb-3">
       <h4>Рейтинг</h4>
+      <p className="text-warning">
+        <i className="fas fa-star fa-lg mr-1" />
+        <i className="fas fa-star fa-lg mr-1" />
+        <i className="far fa-star fa-lg mr-1" />
+        <i className="far fa-star fa-lg mr-1" />
+        <i className="far fa-star fa-lg" />
+      </p>
     </div>
-  )
-}
+  );
+};
 
-FilterRating.propTypes = {
+FilterRating.propTypes = {};
 
-}
-
-export default FilterRating
-
+export default FilterRating;

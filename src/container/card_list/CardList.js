@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import CardItem from '../../layout/card/CardItem';
@@ -11,9 +11,8 @@ class CardList extends Component {
 
   render() {
     const { cards } = this.props;
-    console.log(cards);
     return (
-      <div className="row">
+      <div className="row text-left">
         {cards.map(card => (
           <CardItem key={card.id} {...card} />
         ))}

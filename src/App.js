@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import store from './store/store';
 import Header from './layout/header/Header';
 import Home from './layout/home/Home';
@@ -14,7 +15,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <div className="App">
+          <div className="App bg-light">
             <Header branding="REALTOR" />
             <div className="container">
               <Switch>

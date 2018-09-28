@@ -19,7 +19,7 @@ const Header = props => {
             </li>
             <li className="nav-item">
               <Link to="/about" className="nav-link">
-                <i className="fas fa-question" /> About
+                About
               </Link>
             </li>
           </ul>
@@ -30,11 +30,11 @@ const Header = props => {
 };
 
 Header.defaultProps = {
-  branding: 'My App'
+  branding: 'My App',
 };
 
 Header.propTypes = {
-  branding: PropTypes.string.isRequired
+  branding: PropTypes.string.isRequired,
 };
 
 export default Header;

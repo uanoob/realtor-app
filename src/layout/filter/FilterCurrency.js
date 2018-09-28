@@ -1,11 +1,11 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
+// import PropTypes from 'prop-types';
 
 const filterCurrency = () => {
   return (
-    <div className="mx-3 mb-3">
+    <div className="mb-3">
       <h4>Валюта</h4>
-      <div className="btn-group btn-group-toggle" data-toggle="buttons">
+      <div className="btn-group btn-group-toggle btn-block" data-toggle="buttons">
         <label className="btn btn-outline-info active">
           <input type="radio" name="options" id="currency-uan" />
           UAN

@@ -1,58 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const filterRooms = () => {
+const filterRooms = ({ label, htmlFor, name, id, value, onClick }) => {
   return (
-    <div className="mx-3 mb-3">
-      <h4>Количество комнат</h4>
-      <div className="custom-control custom-radio">
-        <input
-          type="radio"
-          id="customRadio1"
-          name="customRadio"
-          className="custom-control-input"
-        />
-        <label className="custom-control-label" htmlFor="customRadio1">
-          Все
-        </label>
-      </div>
-      <div className="custom-control custom-radio">
-        <input
-          type="radio"
-          id="customRadio2"
-          name="customRadio"
-          className="custom-control-input"
-        />
-        <label className="custom-control-label" htmlFor="customRadio2">
-          1 комната
-        </label>
-      </div>
-      <div className="custom-control custom-radio">
-        <input
-          type="radio"
-          id="customRadio3"
-          name="customRadio"
-          className="custom-control-input"
-        />
-        <label className="custom-control-label" htmlFor="customRadio3">
-          2 комнаты
-        </label>
-      </div>
-      <div className="custom-control custom-radio">
-        <input
-          type="radio"
-          id="customRadio4"
-          name="customRadio"
-          className="custom-control-input"
-        />
-        <label className="custom-control-label" htmlFor="customRadio4">
-          3 комнаты
-        </label>
-      </div>
+    <div className="custom-control custom-radio">
+      <input
+        className="custom-control-input"
+        type="radio"
+        name={name}
+        id={id}
+        value={value}
+        onClick={onClick}
+      />
+      <label className="custom-control-label" htmlFor={htmlFor}>
+        {label}
+      </label>
     </div>
   );
 };
 
-filterRooms.propTypes = {};
+filterRooms.propTypes = {
+  label: PropTypes.string.isRequired,
+  htmlFor: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
 
 export default filterRooms;
