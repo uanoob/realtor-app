@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import classnames from 'classnames';
 
 const CardItem = card => {
   return (
@@ -10,11 +11,31 @@ const CardItem = card => {
             <img src={card.images[0]} className="img-fluid mb-2" alt="" />
           </div>
           <p className="mt-3 text-center text-warning">
-            <i className="fas fa-star fa-lg mr-1" />
-            <i className="fas fa-star fa-lg mr-1" />
-            <i className="far fa-star fa-lg mr-1" />
-            <i className="far fa-star fa-lg mr-1" />
-            <i className="far fa-star fa-lg" />
+            <i
+              className={classnames('far fa-star fa-lg mr-1', {
+                'fas': (card.rating >= 1)? true: false,
+              })}
+            />
+            <i
+              className={classnames('far fa-star fa-lg mr-1', {
+                'fas': (card.rating >= 2)? true: false,
+              })}
+            />
+            <i
+              className={classnames('far fa-star fa-lg mr-1', {
+                'fas': (card.rating >= 3)? true: false,
+              })}
+            />
+            <i
+              className={classnames('far fa-star fa-lg mr-1', {
+                'fas': (card.rating >= 4)? true: false,
+              })}
+            />
+            <i
+              className={classnames('far fa-star fa-lg mr-1', {
+                'fas': (card.rating >= 5)? true: false,
+              })}
+            />
           </p>
         </div>
         <div className="card-body col-md-12 col-lg-6 d-flex flex-column">
@@ -22,7 +43,7 @@ const CardItem = card => {
           <div className="card-text mb-2">{card.description}</div>
           <div className="mb-2 d-flex flex-wrap justify-content-between">
             <span className="card-text mr-2">
-              <i className="fas fa-home mr-2" />
+              <i className="'fas' fa-home mr-2" />
               {card.total_rooms} комнаты{' '}
             </span>
             <span className="card-text">
