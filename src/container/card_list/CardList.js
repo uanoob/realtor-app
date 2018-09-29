@@ -27,7 +27,7 @@ CardList.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  cards: state.card.cards,
+  cards: state.card.show,
 });
 
 const mapDispatchToProps = { getCards };
