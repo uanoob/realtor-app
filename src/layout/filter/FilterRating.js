@@ -1,21 +1,25 @@
 import React from 'react';
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
-const FilterRating = () => {
+const FilterRating = ({ name, id, onClick }) => {
   return (
-    <div className="mb-3">
-      <h4>Рейтинг</h4>
-      <p className="text-warning">
-        <i className="fas fa-star fa-lg mr-1" />
-        <i className="fas fa-star fa-lg mr-1" />
-        <i className="far fa-star fa-lg mr-1" />
-        <i className="far fa-star fa-lg mr-1" />
-        <i className="far fa-star fa-lg" />
-      </p>
+    <div className="custom-control custom-radio">
+      {/* <i className="far fa-star fa-lg mr-1" style={{ cursor: 'pointer' }} /> */}
+      <input
+        className="custom-control-input"
+        type="radio"
+        name={name}
+        id={id}
+        onClick={onClick}
+      />
     </div>
   );
 };
 
-FilterRating.propTypes = {};
+FilterRating.propTypes = {
+  name: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
 
 export default FilterRating;

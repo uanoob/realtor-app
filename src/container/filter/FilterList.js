@@ -6,15 +6,16 @@ import FilterRooms from '../../layout/filter/FilterRooms';
 import FilterPrice from '../../layout/filter/FilterPrice';
 import FilterRating from '../../layout/filter/FilterRating';
 
-import { getShowRooms, showPriceMax } from '../../store/actions/';
+import { getFiltersCards } from '../../utils/filters';
+import { getFilters } from '../../store/actions';
 
 class FilterList extends Component {
   state = {
-    currency: '',
-    room: 'SHOW_ROOMS_ALL',
-    priceMin: '',
-    priceMax: '',
-    rating: '',
+    CURRENCY: '',
+    FILTER_ROOMS: '',
+    FILTER_PRICE_MIN: '',
+    FILTER_PRICE_MAX: '',
+    FILTER_RATING: '',
   };
 
   onSubmit = e => {
@@ -22,36 +23,33 @@ class FilterList extends Component {
 
     console.log(this.state);
 
-    const { cards } = this.props;
-    const { currency, room, priceMin, priceMax, rating } = this.state;
+    const { cards, getFilters } = this.props;
+    const state = this.state;
 
-    // const newFilter = {
-    //   currency,
-    //   room,
-    //   price,
-    //   rating,
-    // };
-
-    this.props.getShowRooms(cards, room);
-    if (priceMax !== '') {
-      this.props.showPriceMax(cards, priceMax);
+    let filtered = cards;
+    for (let key in state) {
+      // console.log(`${key}: ${state[key]}`);
+      const list = getFiltersCards(filtered, key, state[key]);
+      filtered = list;
     }
+    getFilters(filtered);
   };
 
   onRoomHandler = e => {
-    console.log(e.target.id);
-    const { cards } = this.props;
+    console.log(e.target.name);
     this.setState({ [e.target.name]: e.target.id });
-    this.props.getShowRooms(cards, e.target.id);
   };
 
   onPriceHandler = e => {
     console.log(e.target.id);
-    const { cards } = this.props;
     this.setState({
       [e.target.id]: e.target.value,
     });
-    this.props.showPriceMax(cards, e.target.value);
+  };
+
+  onRatingHandler = e => {
+    console.log(e.target.id);
+    this.setState({ FILTER_RATING: e.target.id });
   };
 
   render() {
@@ -61,34 +59,32 @@ class FilterList extends Component {
           <FilterCurrency />
           <div className="mb-3">
             <h4>Количество комнат</h4>
-            <div>
-              
-            </div>
+            <div />
             <FilterRooms
               label="Все"
               htmlFor="SHOW_ROOMS_ALL"
-              name="room"
+              name="FILTER_ROOMS"
               id="SHOW_ROOMS_ALL"
               onClick={this.onRoomHandler}
             />
             <FilterRooms
               label="1 комната"
               htmlFor="SHOW_ROOMS_ONE"
-              name="room"
+              name="FILTER_ROOMS"
               id="SHOW_ROOMS_ONE"
               onClick={this.onRoomHandler}
             />
             <FilterRooms
               label="2 комнаты"
               htmlFor="SHOW_ROOMS_TWO"
-              name="room"
+              name="FILTER_ROOMS"
               id="SHOW_ROOMS_TWO"
               onClick={this.onRoomHandler}
             />
             <FilterRooms
               label="3 комнаты"
               htmlFor="SHOW_ROOMS_THREE"
-              name="room"
+              name="FILTER_ROOMS"
               id="SHOW_ROOMS_THREE"
               onClick={this.onRoomHandler}
             />
@@ -99,20 +95,47 @@ class FilterList extends Component {
               <FilterPrice
                 label="От"
                 htmlFor="SHOW_PRICE_FROM"
-                name="price"
-                id="priceMin"
+                name="FILTER_PRICE_MIN"
+                id="FILTER_PRICE_MIN"
                 onChange={this.onPriceHandler}
               />
               <FilterPrice
                 label="До"
                 htmlFor="SHOW_PRICE_TO"
-                name="price"
-                id="priceMax"
+                name="FILTER_PRICE_MAX"
+                id="FILTER_PRICE_MAX"
                 onChange={this.onPriceHandler}
               />
             </div>
           </div>
-          <FilterRating />
+          <div className="mb-3">
+            <h4>Рейтинг</h4>
+            <FilterRating
+              name="rating"
+              id="RATING_ONE"
+              onClick={this.onRatingHandler}
+            />
+            <FilterRating
+              id="RATING_TWO"
+              name="rating"
+              onClick={this.onRatingHandler}
+            />
+            <FilterRating
+              id="RATING_THREE"
+              name="rating"
+              onClick={this.onRatingHandler}
+            />
+            <FilterRating
+              id="RATING_FOUR"
+              name="rating"
+              onClick={this.onRatingHandler}
+            />
+            <FilterRating
+              id="RATING_FIVE"
+              name="rating"
+              onClick={this.onRatingHandler}
+            />
+          </div>
           <div className="form-group row">
             <div className="col-sm-10">
               <input
@@ -132,7 +155,7 @@ const mapStateToProps = state => ({
   cards: state.card.data,
 });
 
-const mapDispatchToProps = { getShowRooms, showPriceMax };
+const mapDispatchToProps = { getFilters };
 
 export default connect(
   mapStateToProps,
