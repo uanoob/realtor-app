@@ -1,1 +1,1 @@
-export { getCards, getShowRooms, showPriceMax } from './cardActions';
+export { getCards, getFilters } from './cardActions';
