@@ -45,9 +45,18 @@ const showPriceMin = (cards, value) => {
 };
 
 const filterRating = (cards, value) => {
-  if (value !== '') {
-    return cards.filter(card => card.rating === value);
-  } else {
-    return cards;
+  switch (value) {
+    case 'RATING_ONE':
+      return cards.filter(card => card.rating === 1);
+    case 'RATING_TWO':
+      return cards.filter(card => card.rating === 2);
+    case 'RATING_THREE':
+      return cards.filter(card => card.rating === 3);
+    case 'RATING_FOUR':
+      return cards.filter(card => card.rating === 4);
+    case 'RATING_FIVE':
+      return cards.filter(card => card.rating === 5);
+    default:
+      return cards;
   }
 };

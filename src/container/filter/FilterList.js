@@ -52,6 +52,23 @@ class FilterList extends Component {
     this.setState({ FILTER_RATING: e.target.id });
   };
 
+  onRatingUIHandler = value => {
+    switch (value) {
+      case 'RATING_ONE':
+        return 1;
+      case 'RATING_TWO':
+        return 2;
+      case 'RATING_THREE':
+        return 3;
+      case 'RATING_FOUR':
+        return 4;
+      case 'RATING_FIVE':
+        return 5;
+      default:
+        return 0;
+    }
+  };
+
   render() {
     return (
       <div className="bg-white p-2">
@@ -111,28 +128,7 @@ class FilterList extends Component {
           <div className="mb-3">
             <h4>Рейтинг</h4>
             <FilterRating
-              name="rating"
-              id="RATING_ONE"
-              onClick={this.onRatingHandler}
-            />
-            <FilterRating
-              id="RATING_TWO"
-              name="rating"
-              onClick={this.onRatingHandler}
-            />
-            <FilterRating
-              id="RATING_THREE"
-              name="rating"
-              onClick={this.onRatingHandler}
-            />
-            <FilterRating
-              id="RATING_FOUR"
-              name="rating"
-              onClick={this.onRatingHandler}
-            />
-            <FilterRating
-              id="RATING_FIVE"
-              name="rating"
+              rating={this.onRatingUIHandler(this.state.FILTER_RATING)}
               onClick={this.onRatingHandler}
             />
           </div>
