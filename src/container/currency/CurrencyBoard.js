@@ -8,9 +8,15 @@ import {
   getCurrencyEUR,
   changeCurrency,
 } from '../../store/actions';
+import { isFiltered } from '../../store/actions';
+
 import { toggleCurrency } from '../../utils/currency';
 
 class CurrencyBoard extends Component {
+  state = {
+    currency: '',
+  };
+
   componentDidMount() {
     this.props.getCurrencyUSD();
     this.props.getCurrencyEUR();
@@ -18,10 +24,11 @@ class CurrencyBoard extends Component {
 
   onCurrencyHandler = e => {
     e.preventDefault();
-    const { cards, usd, eur, changeCurrency } = this.props;
+    const { cards, usd, eur, changeCurrency, isFiltered } = this.props;
     console.log(e.target.id);
     const result = toggleCurrency(cards, e.target.id, usd, eur);
-    console.log(result);
+    this.setState({ currency: e.target.id });
+    isFiltered(true);
     changeCurrency(result);
   };
 
@@ -29,24 +36,24 @@ class CurrencyBoard extends Component {
     return (
       <div>
         <h4>Валюта</h4>
-        <div
-          className="btn-group btn-group-toggle btn-block"
-          data-toggle="buttons"
-        >
+        <div className="btn-group btn-group-toggle" data-toggle="buttons">
           <CurrencyItem
             id="CURRENCY_UAH"
             label="UAH"
-            onClick={this.onCurrencyHandler}
+            isActive={this.state.currency === 'CURRENCY_UAH'}
+            onChange={this.onCurrencyHandler}
           />
           <CurrencyItem
             id="CURRENCY_USD"
             label="USD"
-            onClick={this.onCurrencyHandler}
+            isActive={this.state.currency === 'CURRENCY_USD'}
+            onChange={this.onCurrencyHandler}
           />
           <CurrencyItem
             id="CURRENCY_EUR"
             label="EUR"
-            onClick={this.onCurrencyHandler}
+            isActive={this.state.currency === 'CURRENCY_EUR'}
+            onChange={this.onCurrencyHandler}
           />
         </div>
       </div>
@@ -60,6 +67,8 @@ CurrencyBoard.propTypes = {
   eur: PropTypes.object.isRequired,
   getCurrencyUSD: PropTypes.func.isRequired,
   getCurrencyEUR: PropTypes.func.isRequired,
+  changeCurrency: PropTypes.func.isRequired,
+  isFiltered: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -68,7 +77,12 @@ const mapStateToProps = state => ({
   eur: state.currency.eur,
 });
 
-const mapDispatchToProps = { getCurrencyUSD, getCurrencyEUR, changeCurrency };
+const mapDispatchToProps = {
+  getCurrencyUSD,
+  getCurrencyEUR,
+  changeCurrency,
+  isFiltered,
+};
 
 export default connect(
   mapStateToProps,

@@ -11,13 +11,36 @@ export const toggleCurrency = (cards, value, usd, eur) => {
   }
 };
 
-const getCurrencyUSD = (cards, usd) => {
-  const list = cards;
-  list.forEach(card => (card.price = card.price / usd.USD_UAH));
-  return list;
-};
-const getCurrencyEUR = (cards, eur) => {
-  const list = cards;
-  list.forEach(card => (card.price = card.price / eur.EUR_UAH));
-  return list;
-};
+const getCurrencyUSD = (cards, usd) =>
+  cards.map(obj => {
+    let newObj = Object.assign(
+      {},
+      ...Object.keys(obj).map(function(k) {
+        let result;
+        if (k === 'price') {
+          result = { [k]: Math.floor(obj[k] / usd.USD_UAH) };
+        } else {
+          result = { [k]: obj[k] };
+        }
+        return result;
+      }),
+    );
+    return newObj;
+  });
+
+const getCurrencyEUR = (cards, eur) =>
+  cards.map(obj => {
+    let newObj = Object.assign(
+      {},
+      ...Object.keys(obj).map(function(k) {
+        let result;
+        if (k === 'price') {
+          result = { [k]: Math.floor(obj[k] / eur.EUR_UAH) };
+        } else {
+          result = { [k]: obj[k] };
+        }
+        return result;
+      }),
+    );
+    return newObj;
+  });

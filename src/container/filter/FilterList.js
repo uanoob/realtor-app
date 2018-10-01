@@ -19,19 +19,16 @@ class FilterList extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-
-    console.log(this.state);
-
     const { cards, isFiltered, showCards } = this.props;
     const state = this.state;
 
-    isFiltered(true);
-
     let filtered = cards;
     for (let key in state) {
-      const list = getFiltersCards(filtered, key, state[key]);
-      filtered = list;
+      if (state[key] !== '') {
+        filtered = getFiltersCards(filtered, key, state[key]);
+      }
     }
+    isFiltered(true);
     showCards(filtered);
   };
 
@@ -59,6 +56,19 @@ class FilterList extends Component {
     this.props.isFiltered(false);
   };
 
+  showClearButton = () => (
+    <div className="row text-left">
+      <div className="col-sm-10">
+        <input
+          type="button"
+          value="Сбросить"
+          className="btn btn-outline-danger"
+          onClick={this.onClearFilterHandler}
+        />
+      </div>
+    </div>
+  );
+
   onRatingUIHandler = value => {
     switch (value) {
       case 'RATING_ONE':
@@ -75,19 +85,6 @@ class FilterList extends Component {
         return 0;
     }
   };
-
-  showClearButton = () => (
-    <div className="row text-left">
-      <div className="col-sm-10">
-        <input
-          type="button"
-          value="Сбросить"
-          className="btn btn-outline-danger"
-          onClick={this.onClearFilterHandler}
-        />
-      </div>
-    </div>
-  );
 
   render() {
     return (
