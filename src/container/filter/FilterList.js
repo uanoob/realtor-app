@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import FilterCurrency from '../../layout/filter/FilterCurrency';
+import CurrencyBoard from '../currency/CurrencyBoard';
 import FilterRooms from '../../layout/filter/FilterRooms';
 import FilterPrice from '../../layout/filter/FilterPrice';
 import FilterRating from '../../layout/filter/FilterRating';
 
 import { getFiltersCards } from '../../utils/filters';
-import { getFilters } from '../../store/actions';
+import { isFiltered, showCards } from '../../store/actions';
 
 class FilterList extends Component {
   state = {
-    CURRENCY: '',
     FILTER_ROOMS: '',
     FILTER_PRICE_MIN: '',
     FILTER_PRICE_MAX: '',
@@ -23,33 +22,41 @@ class FilterList extends Component {
 
     console.log(this.state);
 
-    const { cards, getFilters } = this.props;
+    const { cards, isFiltered, showCards } = this.props;
     const state = this.state;
+
+    isFiltered(true);
 
     let filtered = cards;
     for (let key in state) {
-      // console.log(`${key}: ${state[key]}`);
       const list = getFiltersCards(filtered, key, state[key]);
       filtered = list;
     }
-    getFilters(filtered);
+    showCards(filtered);
   };
 
   onRoomHandler = e => {
-    console.log(e.target.name);
     this.setState({ [e.target.name]: e.target.id });
   };
 
   onPriceHandler = e => {
-    console.log(e.target.id);
     this.setState({
       [e.target.id]: e.target.value,
     });
   };
 
   onRatingHandler = e => {
-    console.log(e.target.id);
     this.setState({ FILTER_RATING: e.target.id });
+  };
+
+  onClearFilterHandler = e => {
+    this.setState({
+      FILTER_ROOMS: '',
+      FILTER_PRICE_MIN: '',
+      FILTER_PRICE_MAX: '',
+      FILTER_RATING: '',
+    });
+    this.props.isFiltered(false);
   };
 
   onRatingUIHandler = value => {
@@ -69,41 +76,55 @@ class FilterList extends Component {
     }
   };
 
+  showClearButton = () => (
+    <div className="row text-left">
+      <div className="col-sm-10">
+        <input
+          type="button"
+          value="Сбросить"
+          className="btn btn-outline-danger"
+          onClick={this.onClearFilterHandler}
+        />
+      </div>
+    </div>
+  );
+
   render() {
     return (
       <div className="bg-white p-2">
         <form className="text-left" onSubmit={this.onSubmit}>
-          <FilterCurrency />
+          <div className="mb-3">
+            <CurrencyBoard />
+          </div>
           <div className="mb-3">
             <h4>Количество комнат</h4>
-            <div />
             <FilterRooms
               label="Все"
               htmlFor="SHOW_ROOMS_ALL"
               name="FILTER_ROOMS"
               id="SHOW_ROOMS_ALL"
-              onClick={this.onRoomHandler}
+              onChange={this.onRoomHandler}
             />
             <FilterRooms
               label="1 комната"
               htmlFor="SHOW_ROOMS_ONE"
               name="FILTER_ROOMS"
               id="SHOW_ROOMS_ONE"
-              onClick={this.onRoomHandler}
+              onChange={this.onRoomHandler}
             />
             <FilterRooms
               label="2 комнаты"
               htmlFor="SHOW_ROOMS_TWO"
               name="FILTER_ROOMS"
               id="SHOW_ROOMS_TWO"
-              onClick={this.onRoomHandler}
+              onChange={this.onRoomHandler}
             />
             <FilterRooms
               label="3 комнаты"
               htmlFor="SHOW_ROOMS_THREE"
               name="FILTER_ROOMS"
               id="SHOW_ROOMS_THREE"
-              onClick={this.onRoomHandler}
+              onChange={this.onRoomHandler}
             />
           </div>
           <div className="mb-3">
@@ -114,6 +135,7 @@ class FilterList extends Component {
                 htmlFor="SHOW_PRICE_FROM"
                 name="FILTER_PRICE_MIN"
                 id="FILTER_PRICE_MIN"
+                value={this.state.FILTER_PRICE_MIN}
                 onChange={this.onPriceHandler}
               />
               <FilterPrice
@@ -121,6 +143,7 @@ class FilterList extends Component {
                 htmlFor="SHOW_PRICE_TO"
                 name="FILTER_PRICE_MAX"
                 id="FILTER_PRICE_MAX"
+                value={this.state.FILTER_PRICE_MAX}
                 onChange={this.onPriceHandler}
               />
             </div>
@@ -132,13 +155,16 @@ class FilterList extends Component {
               onClick={this.onRatingHandler}
             />
           </div>
-          <div className="form-group row">
-            <div className="col-sm-10">
+          <div className="form-group d-flex  justify-content-between flex-wrap">
+            <div className="mb-2">
               <input
                 type="submit"
                 value="Подобрать"
                 className="btn btn-outline-info"
               />
+            </div>
+            <div className="mb-2">
+              {this.props.filter ? this.showClearButton() : null}
             </div>
           </div>
         </form>
@@ -147,11 +173,19 @@ class FilterList extends Component {
   }
 }
 
+FilterList.propTypes = {
+  cards: PropTypes.array.isRequired,
+  filter: PropTypes.bool.isRequired,
+  isFiltered: PropTypes.func.isRequired,
+  showCards: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = state => ({
   cards: state.card.data,
+  filter: state.card.filter,
 });
 
-const mapDispatchToProps = { getFilters };
+const mapDispatchToProps = { isFiltered, showCards };
 
 export default connect(
   mapStateToProps,

@@ -1,3 +1,6 @@
 export const GET_CARDS = 'GET_CARDS';
+export const GET_CURRENCY_USD = 'GET_CURRENCY_USD';
+export const GET_CURRENCY_EUR = 'GET_CURRENCY_EUR';
+export const CHANGE_CURRENCY = 'CHANGE_CURRENCY';
 export const SHOW_CARDS = 'SHOW_CARDS';
-export const GET_FILTERS = 'GET_FILTERS';
+export const IS_FILTERED = 'IS_FILTERED';

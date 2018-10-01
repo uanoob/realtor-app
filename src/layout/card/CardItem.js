@@ -59,7 +59,7 @@ const CardItem = card => {
               className="btn btn-info darken-2 mt-2"
             >
               <div className="px-4">Купить за</div>
-              {card.price} $
+              {card.price}
             </Link>
           </div>
         </div>

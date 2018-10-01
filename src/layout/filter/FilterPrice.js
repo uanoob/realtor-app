@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 const filterPrice = ({ label, htmlFor, name, id, value, onChange }) => {
   return (
@@ -14,7 +14,7 @@ const filterPrice = ({ label, htmlFor, name, id, value, onChange }) => {
             className="form-control"
             name={name}
             id={id}
-            placeholder=""
+            value={value}
             onChange={onChange}
           />
         </div>
@@ -23,6 +23,13 @@ const filterPrice = ({ label, htmlFor, name, id, value, onChange }) => {
   );
 };
 
-filterPrice.propTypes = {};
+filterPrice.propTypes = {
+  label: PropTypes.string.isRequired,
+  htmlFor: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default filterPrice;

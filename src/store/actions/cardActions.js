@@ -1,5 +1,5 @@
-import { GET_CARDS, SHOW_CARDS, GET_FILTERS } from './types';
 import axios from 'axios';
+import { GET_CARDS, SHOW_CARDS, IS_FILTERED } from './types';
 
 export const getCards = () => async dispatch => {
   const response = await axios.get('http://demo4452328.mockable.io/property');
@@ -7,15 +7,18 @@ export const getCards = () => async dispatch => {
     type: GET_CARDS,
     payload: response.data.data,
   });
+};
+
+export const isFiltered = flag => dispatch => {
   dispatch({
-    type: SHOW_CARDS,
-    payload: response.data.data,
+    type: IS_FILTERED,
+    payload: flag,
   });
 };
 
-export const getFilters = cards => dispatch => {
+export const showCards = cards => dispatch => {
   dispatch({
-    type: GET_FILTERS,
+    type: SHOW_CARDS,
     payload: cards,
   });
 };

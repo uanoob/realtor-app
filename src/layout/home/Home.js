@@ -1,6 +1,6 @@
 import React from 'react';
 import FilterList from '../../container/filter/FilterList';
-import CardList from '../../container/card_list/CardList';
+import CardList from '../../container/card/CardList';
 
 const Home = () => {
   return (

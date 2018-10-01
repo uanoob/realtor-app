@@ -1,8 +1,9 @@
-import { GET_CARDS, SHOW_CARDS, GET_FILTERS } from '../actions/types';
+import { GET_CARDS, SHOW_CARDS, IS_FILTERED } from '../actions/types';
 
 const initialState = {
   data: [],
   show: [],
+  filter: false,
 };
 
 export default function(state = initialState, action) {
@@ -11,8 +12,8 @@ export default function(state = initialState, action) {
       return { ...state, data: action.payload };
     case SHOW_CARDS:
       return { ...state, show: action.payload };
-    case GET_FILTERS:
-      return { ...state, show: action.payload };
+    case IS_FILTERED:
+      return { ...state, filter: action.payload };
     default:
       return state;
   }
