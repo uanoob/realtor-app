@@ -1,8 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-const CardItem = card => {
+const CardItem = ({ card, sign }) => {
+  this.showSign = sign => {
+    switch (sign) {
+      case 'UAH':
+        return <span>&#8372;</span>;
+      case 'USD':
+        return <span>&#36;</span>;
+      case 'EUR':
+        return <span>&#8364;</span>;
+      default:
+        return <span>&#8372;</span>;
+    }
+  };
   return (
     <div className="col-sm-12 mb-3">
       <div className="card flex-row flex-wrap">
@@ -59,13 +72,18 @@ const CardItem = card => {
               className="btn btn-info darken-2 mt-2"
             >
               <div className="px-4">Купить за</div>
-              {card.price}
+              {card.price} {this.showSign(sign)}
             </Link>
           </div>
         </div>
       </div>
     </div>
   );
+};
+
+CardItem.propTypes = {
+  card: PropTypes.object.isRequired,
+  sign: PropTypes.string.isRequired,
 };
 
 export default CardItem;

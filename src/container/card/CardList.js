@@ -10,13 +10,13 @@ class CardList extends Component {
   }
 
   render() {
-    const { data, show, filter } = this.props;
+    const { data, show, sign, filter } = this.props;
     let cards = [];
     filter ? (cards = show) : (cards = data);
     return (
       <div className="row text-left">
         {cards.map(card => (
-          <CardItem key={card.id} {...card} />
+          <CardItem key={card.id} card={card} sign={sign} />
         ))}
       </div>
     );
@@ -26,6 +26,7 @@ class CardList extends Component {
 CardList.propTypes = {
   data: PropTypes.array.isRequired,
   show: PropTypes.array.isRequired,
+  sign: PropTypes.string.isRequired,
   filter: PropTypes.bool.isRequired,
   getCards: PropTypes.func.isRequired,
 };
@@ -33,6 +34,7 @@ CardList.propTypes = {
 const mapStateToProps = state => ({
   data: state.card.data,
   show: state.card.show,
+  sign: state.currency.sign,
   filter: state.card.filter,
 });
 

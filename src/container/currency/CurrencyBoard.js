@@ -7,14 +7,15 @@ import {
   getCurrencyUSD,
   getCurrencyEUR,
   changeCurrency,
+  setCurrencySign,
 } from '../../store/actions';
 import { isFiltered } from '../../store/actions';
 
-import { toggleCurrency } from '../../utils/currency';
+import { toggleCurrency, getCurrencySign } from '../../utils/currency';
 
 class CurrencyBoard extends Component {
   state = {
-    currency: '',
+    currency: 'CURRENCY_UAH',
   };
 
   componentDidMount() {
@@ -24,12 +25,21 @@ class CurrencyBoard extends Component {
 
   onCurrencyHandler = e => {
     e.preventDefault();
-    const { cards, usd, eur, changeCurrency, isFiltered } = this.props;
+    const {
+      cards,
+      usd,
+      eur,
+      changeCurrency,
+      setCurrencySign,
+      isFiltered,
+    } = this.props;
     console.log(e.target.id);
     const result = toggleCurrency(cards, e.target.id, usd, eur);
     this.setState({ currency: e.target.id });
     isFiltered(true);
     changeCurrency(result);
+    const sign = getCurrencySign(e.target.id);
+    setCurrencySign(sign);
   };
 
   render() {
@@ -68,6 +78,7 @@ CurrencyBoard.propTypes = {
   getCurrencyUSD: PropTypes.func.isRequired,
   getCurrencyEUR: PropTypes.func.isRequired,
   changeCurrency: PropTypes.func.isRequired,
+  setCurrencySign: PropTypes.func.isRequired,
   isFiltered: PropTypes.func.isRequired,
 };
 
@@ -81,6 +92,7 @@ const mapDispatchToProps = {
   getCurrencyUSD,
   getCurrencyEUR,
   changeCurrency,
+  setCurrencySign,
   isFiltered,
 };
 

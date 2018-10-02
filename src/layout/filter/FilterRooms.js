@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const filterRooms = ({ label, htmlFor, name, id, onChange }) => {
+const filterRooms = ({ label, htmlFor, name, id, checked, onChange }) => {
   return (
     <div className="custom-control custom-radio">
       <input
@@ -9,6 +9,7 @@ const filterRooms = ({ label, htmlFor, name, id, onChange }) => {
         type="radio"
         name={name}
         id={id}
+        checked={checked}
         onChange={onChange}
       />
       <label className="custom-control-label" htmlFor={htmlFor}>
@@ -23,6 +24,7 @@ filterRooms.propTypes = {
   htmlFor: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  checked: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 

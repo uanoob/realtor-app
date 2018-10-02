@@ -44,3 +44,16 @@ const getCurrencyEUR = (cards, eur) =>
     );
     return newObj;
   });
+
+export const getCurrencySign = sign => {
+  switch (sign) {
+    case 'CURRENCY_UAH':
+      return 'UAH';
+    case 'CURRENCY_USD':
+      return 'USD';
+    case 'CURRENCY_EUR':
+      return 'EUR';
+    default:
+      return 'UAH';
+  }
+};

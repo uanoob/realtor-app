@@ -1,35 +1,69 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import CurrencyBoard from '../currency/CurrencyBoard';
+import './Filter.css';
+import CurrencyItem from '../../layout/currency/CurrencyItem';
 import FilterRooms from '../../layout/filter/FilterRooms';
 import FilterPrice from '../../layout/filter/FilterPrice';
 import FilterRating from '../../layout/filter/FilterRating';
 
 import { getFiltersCards } from '../../utils/filters';
-import { isFiltered, showCards } from '../../store/actions';
+import { toggleCurrency, getCurrencySign } from '../../utils/currency';
+
+import {
+  getCurrencyUSD,
+  getCurrencyEUR,
+  changeCurrency,
+  setCurrencySign,
+  clearCurrencySign,
+  resetFilters,
+  isFiltered,
+  showCards,
+} from '../../store/actions';
 
 class FilterList extends Component {
   state = {
+    checked: false,
+    currency: 'CURRENCY_UAH',
     FILTER_ROOMS: '',
     FILTER_PRICE_MIN: '',
     FILTER_PRICE_MAX: '',
     FILTER_RATING: '',
   };
 
+  componentDidMount() {
+    this.props.getCurrencyUSD();
+    this.props.getCurrencyEUR();
+  }
+
   onSubmit = e => {
     e.preventDefault();
-    const { cards, isFiltered, showCards } = this.props;
+    const {
+      cards,
+      usd,
+      eur,
+      setCurrencySign,
+      isFiltered,
+      showCards,
+    } = this.props;
     const state = this.state;
 
-    let filtered = cards;
+    const sign = getCurrencySign(state.currency);
+    setCurrencySign(sign);
+
+    let filtered = toggleCurrency(cards, state.currency, usd, eur);
     for (let key in state) {
-      if (state[key] !== '') {
+      if (state[key]) {
         filtered = getFiltersCards(filtered, key, state[key]);
       }
     }
     isFiltered(true);
     showCards(filtered);
+  };
+
+  onCurrencyHandler = e => {
+    e.preventDefault();
+    this.setState({ currency: e.target.id });
   };
 
   onRoomHandler = e => {
@@ -46,13 +80,20 @@ class FilterList extends Component {
     this.setState({ FILTER_RATING: e.target.id });
   };
 
+  resetCheckedInputput = e => {
+    return false;
+  };
+
   onClearFilterHandler = e => {
     this.setState({
+      currency: 'CURRENCY_UAH',
       FILTER_ROOMS: '',
       FILTER_PRICE_MIN: '',
       FILTER_PRICE_MAX: '',
       FILTER_RATING: '',
     });
+    this.props.resetFilters();
+    this.props.clearCurrencySign();
     this.props.isFiltered(false);
   };
 
@@ -91,7 +132,30 @@ class FilterList extends Component {
       <div className="bg-white p-2">
         <form className="text-left" onSubmit={this.onSubmit}>
           <div className="mb-3">
-            <CurrencyBoard />
+            <h4>Валюта</h4>
+            <div className="btn-group btn-group-toggle" data-toggle="buttons">
+              <CurrencyItem
+                id="CURRENCY_UAH"
+                label="UAH"
+                isActive={this.state.currency === 'CURRENCY_UAH'}
+                checked={this.state.currency === 'CURRENCY_UAH'}
+                onChange={this.onCurrencyHandler}
+              />
+              <CurrencyItem
+                id="CURRENCY_USD"
+                label="USD"
+                isActive={this.state.currency === 'CURRENCY_USD'}
+                checked={this.state.currency === 'CURRENCY_USD'}
+                onChange={this.onCurrencyHandler}
+              />
+              <CurrencyItem
+                id="CURRENCY_EUR"
+                label="EUR"
+                isActive={this.state.currency === 'CURRENCY_EUR'}
+                checked={this.state.currency === 'CURRENCY_EUR'}
+                onChange={this.onCurrencyHandler}
+              />
+            </div>
           </div>
           <div className="mb-3">
             <h4>Количество комнат</h4>
@@ -100,6 +164,7 @@ class FilterList extends Component {
               htmlFor="SHOW_ROOMS_ALL"
               name="FILTER_ROOMS"
               id="SHOW_ROOMS_ALL"
+              checked={this.state.FILTER_ROOMS === 'SHOW_ROOMS_ALL'}
               onChange={this.onRoomHandler}
             />
             <FilterRooms
@@ -107,6 +172,7 @@ class FilterList extends Component {
               htmlFor="SHOW_ROOMS_ONE"
               name="FILTER_ROOMS"
               id="SHOW_ROOMS_ONE"
+              checked={this.state.FILTER_ROOMS === 'SHOW_ROOMS_ONE'}
               onChange={this.onRoomHandler}
             />
             <FilterRooms
@@ -114,6 +180,7 @@ class FilterList extends Component {
               htmlFor="SHOW_ROOMS_TWO"
               name="FILTER_ROOMS"
               id="SHOW_ROOMS_TWO"
+              checked={this.state.FILTER_ROOMS === 'SHOW_ROOMS_TWO'}
               onChange={this.onRoomHandler}
             />
             <FilterRooms
@@ -121,6 +188,7 @@ class FilterList extends Component {
               htmlFor="SHOW_ROOMS_THREE"
               name="FILTER_ROOMS"
               id="SHOW_ROOMS_THREE"
+              checked={this.state.FILTER_ROOMS === 'SHOW_ROOMS_THREE'}
               onChange={this.onRoomHandler}
             />
           </div>
@@ -172,6 +240,13 @@ class FilterList extends Component {
 
 FilterList.propTypes = {
   cards: PropTypes.array.isRequired,
+  usd: PropTypes.object.isRequired,
+  eur: PropTypes.object.isRequired,
+  getCurrencyUSD: PropTypes.func.isRequired,
+  getCurrencyEUR: PropTypes.func.isRequired,
+  changeCurrency: PropTypes.func.isRequired,
+  setCurrencySign: PropTypes.func.isRequired,
+  clearCurrencySign: PropTypes.func.isRequired,
   filter: PropTypes.bool.isRequired,
   isFiltered: PropTypes.func.isRequired,
   showCards: PropTypes.func.isRequired,
@@ -179,10 +254,21 @@ FilterList.propTypes = {
 
 const mapStateToProps = state => ({
   cards: state.card.data,
+  usd: state.currency.usd,
+  eur: state.currency.eur,
   filter: state.card.filter,
 });
 
-const mapDispatchToProps = { isFiltered, showCards };
+const mapDispatchToProps = {
+  getCurrencyUSD,
+  getCurrencyEUR,
+  changeCurrency,
+  setCurrencySign,
+  clearCurrencySign,
+  resetFilters,
+  isFiltered,
+  showCards,
+};
 
 export default connect(
   mapStateToProps,

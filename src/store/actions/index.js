@@ -1,11 +1,9 @@
-export {
-  getCards,
-  showCards,
-  isFiltered,
-} from './cardActions';
+export { getCards, showCards, resetFilters, isFiltered } from './cardActions';
 
 export {
   getCurrencyUSD,
   getCurrencyEUR,
   changeCurrency,
+  setCurrencySign,
+  clearCurrencySign,
 } from './currencyActions';
