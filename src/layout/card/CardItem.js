@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 const CardItem = ({ card, sign }) => {
-  this.showSign = sign => {
-    switch (sign) {
+  const showSign = (currencySign) => {
+    switch (currencySign) {
       case 'UAH':
         return <span>&#8372;</span>;
       case 'USD':
@@ -26,27 +26,27 @@ const CardItem = ({ card, sign }) => {
           <p className="mt-3 text-center text-warning">
             <i
               className={classnames('far fa-star fa-lg mr-1', {
-                fas: card.rating >= 1 ? true : false,
+                fas: card.rating >= 1,
               })}
             />
             <i
               className={classnames('far fa-star fa-lg mr-1', {
-                fas: card.rating >= 2 ? true : false,
+                fas: card.rating >= 2,
               })}
             />
             <i
               className={classnames('far fa-star fa-lg mr-1', {
-                fas: card.rating >= 3 ? true : false,
+                fas: card.rating >= 3,
               })}
             />
             <i
               className={classnames('far fa-star fa-lg mr-1', {
-                fas: card.rating >= 4 ? true : false,
+                fas: card.rating >= 4,
               })}
             />
             <i
               className={classnames('far fa-star fa-lg mr-1', {
-                fas: card.rating >= 5 ? true : false,
+                fas: card.rating >= 5,
               })}
             />
           </p>
@@ -57,7 +57,9 @@ const CardItem = ({ card, sign }) => {
           <div className="mb-2 d-flex flex-wrap justify-content-between">
             <span className="card-text mr-2">
               <i className="fas fa-home mr-2" />
-              {card.total_rooms} комнаты
+              {card.total_rooms}
+              {' '}
+комнаты
             </span>
             <span className="card-text">
               <div>
@@ -67,12 +69,11 @@ const CardItem = ({ card, sign }) => {
             </span>
           </div>
           <div className="mt-auto text-right">
-            <Link
-              to={`/cards/${card.id}`}
-              className="btn btn-info darken-2 mt-2"
-            >
+            <Link to={`/cards/${card.id}`} className="btn btn-info darken-2 mt-2">
               <div className="px-4">Купить за</div>
-              {card.price} {this.showSign(sign)}
+              {card.price}
+              {' '}
+              {showSign(sign)}
             </Link>
           </div>
         </div>
@@ -82,7 +83,15 @@ const CardItem = ({ card, sign }) => {
 };
 
 CardItem.propTypes = {
-  card: PropTypes.object.isRequired,
+  card: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    full_address: PropTypes.string.isRequired,
+    images: PropTypes.arrayOf(PropTypes.string.isRequired),
+    rating: PropTypes.number.isRequired,
+    total_rooms: PropTypes.number.isRequired,
+    public_date: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  }).isRequired,
   sign: PropTypes.string.isRequired,
 };
 

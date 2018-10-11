@@ -7,8 +7,8 @@ import {
   CLEAR_CURRENCY_SIGN,
 } from './types';
 
-export const getCurrencyUSD = () => async dispatch => {
-  let response = await axios.get(
+export const getCurrencyUSD = () => async (dispatch) => {
+  const response = await axios.get(
     'https://free.currencyconverterapi.com/api/v6/convert?q=USD_UAH&compact=ultra',
   );
   dispatch({
@@ -17,8 +17,8 @@ export const getCurrencyUSD = () => async dispatch => {
   });
 };
 
-export const getCurrencyEUR = () => async dispatch => {
-  let response = await axios.get(
+export const getCurrencyEUR = () => async (dispatch) => {
+  const response = await axios.get(
     'https://free.currencyconverterapi.com/api/v6/convert?q=EUR_UAH&compact=ultra',
   );
   dispatch({
@@ -27,21 +27,21 @@ export const getCurrencyEUR = () => async dispatch => {
   });
 };
 
-export const changeCurrency = cards => dispatch => {
+export const changeCurrency = cards => (dispatch) => {
   dispatch({
     type: CHANGE_CURRENCY,
     payload: cards,
   });
 };
 
-export const setCurrencySign = sign => dispatch => {
+export const setCurrencySign = sign => (dispatch) => {
   dispatch({
     type: SET_CURRENCY_SIGN,
     payload: sign,
   });
 };
 
-export const clearCurrencySign = () => dispatch => {
+export const clearCurrencySign = () => (dispatch) => {
   dispatch({
     type: CLEAR_CURRENCY_SIGN,
     payload: '',

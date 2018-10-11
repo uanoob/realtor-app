@@ -1,3 +1,35 @@
+const getCurrencyUSD = (cards, usd) => cards.map((obj) => {
+  const newObj = Object.assign(
+    {},
+    ...Object.keys(obj).map((k) => {
+      let result;
+      if (k === 'price') {
+        result = { [k]: Math.floor(obj[k] / usd.USD_UAH) };
+      } else {
+        result = { [k]: obj[k] };
+      }
+      return result;
+    }),
+  );
+  return newObj;
+});
+
+const getCurrencyEUR = (cards, eur) => cards.map((obj) => {
+  const newObj = Object.assign(
+    {},
+    ...Object.keys(obj).map((k) => {
+      let result;
+      if (k === 'price') {
+        result = { [k]: Math.floor(obj[k] / eur.EUR_UAH) };
+      } else {
+        result = { [k]: obj[k] };
+      }
+      return result;
+    }),
+  );
+  return newObj;
+});
+
 export const toggleCurrency = (cards, value, usd, eur) => {
   switch (value) {
     case 'CURRENCY_UAH':
@@ -11,41 +43,7 @@ export const toggleCurrency = (cards, value, usd, eur) => {
   }
 };
 
-const getCurrencyUSD = (cards, usd) =>
-  cards.map(obj => {
-    let newObj = Object.assign(
-      {},
-      ...Object.keys(obj).map(function(k) {
-        let result;
-        if (k === 'price') {
-          result = { [k]: Math.floor(obj[k] / usd.USD_UAH) };
-        } else {
-          result = { [k]: obj[k] };
-        }
-        return result;
-      }),
-    );
-    return newObj;
-  });
-
-const getCurrencyEUR = (cards, eur) =>
-  cards.map(obj => {
-    let newObj = Object.assign(
-      {},
-      ...Object.keys(obj).map(function(k) {
-        let result;
-        if (k === 'price') {
-          result = { [k]: Math.floor(obj[k] / eur.EUR_UAH) };
-        } else {
-          result = { [k]: obj[k] };
-        }
-        return result;
-      }),
-    );
-    return newObj;
-  });
-
-export const getCurrencySign = sign => {
+export const getCurrencySign = (sign) => {
   switch (sign) {
     case 'CURRENCY_UAH':
       return 'UAH';

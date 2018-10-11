@@ -8,8 +8,8 @@ import {
   getCurrencyEUR,
   changeCurrency,
   setCurrencySign,
+  isFiltered,
 } from '../../store/actions';
-import { isFiltered } from '../../store/actions';
 
 import { toggleCurrency, getCurrencySign } from '../../utils/currency';
 
@@ -19,30 +19,32 @@ class CurrencyBoard extends Component {
   };
 
   componentDidMount() {
-    this.props.getCurrencyUSD();
-    this.props.getCurrencyEUR();
+    const { getCurrencyUSDConnect, getCurrencyEURConnect } = this.props;
+    getCurrencyUSDConnect();
+    getCurrencyEURConnect();
   }
 
-  onCurrencyHandler = e => {
+  onCurrencyHandler = (e) => {
     e.preventDefault();
     const {
       cards,
       usd,
       eur,
-      changeCurrency,
-      setCurrencySign,
-      isFiltered,
+      changeCurrencyConnect,
+      setCurrencySignConnect,
+      isFilteredConnect,
     } = this.props;
-    console.log(e.target.id);
+    // console.log(e.target.id);
     const result = toggleCurrency(cards, e.target.id, usd, eur);
     this.setState({ currency: e.target.id });
-    isFiltered(true);
-    changeCurrency(result);
+    isFilteredConnect(true);
+    changeCurrencyConnect(result);
     const sign = getCurrencySign(e.target.id);
-    setCurrencySign(sign);
+    setCurrencySignConnect(sign);
   };
 
   render() {
+    const { currency } = this.state;
     return (
       <div>
         <h4>Валюта</h4>
@@ -50,19 +52,19 @@ class CurrencyBoard extends Component {
           <CurrencyItem
             id="CURRENCY_UAH"
             label="UAH"
-            isActive={this.state.currency === 'CURRENCY_UAH'}
+            isActive={currency === 'CURRENCY_UAH'}
             onChange={this.onCurrencyHandler}
           />
           <CurrencyItem
             id="CURRENCY_USD"
             label="USD"
-            isActive={this.state.currency === 'CURRENCY_USD'}
+            isActive={currency === 'CURRENCY_USD'}
             onChange={this.onCurrencyHandler}
           />
           <CurrencyItem
             id="CURRENCY_EUR"
             label="EUR"
-            isActive={this.state.currency === 'CURRENCY_EUR'}
+            isActive={currency === 'CURRENCY_EUR'}
             onChange={this.onCurrencyHandler}
           />
         </div>
@@ -72,14 +74,24 @@ class CurrencyBoard extends Component {
 }
 
 CurrencyBoard.propTypes = {
-  cards: PropTypes.array.isRequired,
-  usd: PropTypes.object.isRequired,
-  eur: PropTypes.object.isRequired,
-  getCurrencyUSD: PropTypes.func.isRequired,
-  getCurrencyEUR: PropTypes.func.isRequired,
-  changeCurrency: PropTypes.func.isRequired,
-  setCurrencySign: PropTypes.func.isRequired,
-  isFiltered: PropTypes.func.isRequired,
+  cards: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      full_address: PropTypes.string.isRequired,
+      images: PropTypes.arrayOf(PropTypes.string.isRequired),
+      rating: PropTypes.number.isRequired,
+      total_rooms: PropTypes.number.isRequired,
+      public_date: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+    }),
+  ).isRequired,
+  usd: PropTypes.objectOf(PropTypes.string.isRequired).isRequired,
+  eur: PropTypes.objectOf(PropTypes.string.isRequired).isRequired,
+  getCurrencyUSDConnect: PropTypes.func.isRequired,
+  getCurrencyEURConnect: PropTypes.func.isRequired,
+  changeCurrencyConnect: PropTypes.func.isRequired,
+  setCurrencySignConnect: PropTypes.func.isRequired,
+  isFilteredConnect: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -89,11 +101,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  getCurrencyUSD,
-  getCurrencyEUR,
-  changeCurrency,
-  setCurrencySign,
-  isFiltered,
+  getCurrencyUSDConnect: getCurrencyUSD,
+  getCurrencyEURConnect: getCurrencyEUR,
+  changeCurrencyConnect: changeCurrency,
+  setCurrencySignConnect: setCurrencySign,
+  isFilteredConnect: isFiltered,
 };
 
 export default connect(

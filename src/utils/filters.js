@@ -1,18 +1,3 @@
-export const getFiltersCards = (cards, filter, value) => {
-  switch (filter) {
-    case 'FILTER_ROOMS':
-      return getShowRooms(cards, value);
-    case 'FILTER_RATING':
-      return filterRating(cards, value);
-    case 'FILTER_PRICE_MAX':
-      return showPriceMax(cards, value);
-    case 'FILTER_PRICE_MIN':
-      return showPriceMin(cards, value);
-    default:
-      return cards;
-  }
-};
-
 const getShowRooms = (cards, value) => {
   switch (value) {
     case 'SHOW_ROOMS_ALL':
@@ -31,17 +16,15 @@ const getShowRooms = (cards, value) => {
 const showPriceMax = (cards, value) => {
   if (value !== '') {
     return cards.filter(card => card.price <= value);
-  } else {
-    return cards;
   }
+  return cards;
 };
 
 const showPriceMin = (cards, value) => {
   if (value !== '') {
     return cards.filter(card => card.price > value);
-  } else {
-    return cards;
   }
+  return cards;
 };
 
 const filterRating = (cards, value) => {
@@ -60,3 +43,20 @@ const filterRating = (cards, value) => {
       return cards;
   }
 };
+
+const getFiltersCards = (cards, filter, value) => {
+  switch (filter) {
+    case 'FILTER_ROOMS':
+      return getShowRooms(cards, value);
+    case 'FILTER_RATING':
+      return filterRating(cards, value);
+    case 'FILTER_PRICE_MAX':
+      return showPriceMax(cards, value);
+    case 'FILTER_PRICE_MIN':
+      return showPriceMin(cards, value);
+    default:
+      return cards;
+  }
+};
+
+export default getFiltersCards;
