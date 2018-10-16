@@ -4,10 +4,10 @@ import {
 } from './types';
 
 export const getCards = () => async (dispatch) => {
-  const response = await axios.get('http://demo4452328.mockable.io/property');
+  const response = await axios.get('https://realtor-app-test.firebaseio.com/data.json');
   dispatch({
     type: GET_CARDS,
-    payload: response.data.data,
+    payload: response.data,
   });
 };
 
