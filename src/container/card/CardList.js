@@ -11,12 +11,10 @@ class CardList extends Component {
   }
 
   render() {
-    const {
-      data, show, sign, filter,
-    } = this.props;
+    const { data, show, sign, filter } = this.props;
     const cards = filter ? show : data;
     return (
-      <div className="row text-left">
+      <div className='row text-left'>
         {cards.map(card => (
           <CardItem key={card.id} card={card} sign={sign} />
         ))}
@@ -62,7 +60,4 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = { getCardsConnect: getCards };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(CardList);
+export default connect(mapStateToProps, mapDispatchToProps)(CardList);

@@ -22,13 +22,16 @@ import {
 } from '../../store/actions';
 
 class FilterList extends Component {
-  state = {
-    currency: 'CURRENCY_UAH',
-    FILTER_ROOMS: '',
-    FILTER_PRICE_MIN: '',
-    FILTER_PRICE_MAX: '',
-    FILTER_RATING: '',
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      currency: 'CURRENCY_UAH',
+      FILTER_ROOMS: '',
+      FILTER_PRICE_MIN: '',
+      FILTER_PRICE_MAX: '',
+      FILTER_RATING: '',
+    };
+  }
 
   componentDidMount() {
     const { getCurrencyUSDConnect, getCurrencyEURConnect } = this.props;
@@ -36,7 +39,7 @@ class FilterList extends Component {
     getCurrencyEURConnect();
   }
 
-  onSubmit = (e) => {
+  onSubmit = e => {
     e.preventDefault();
     const {
       cards,
@@ -53,7 +56,7 @@ class FilterList extends Component {
 
     let filtered = toggleCurrency(cards, state.currency, usd, eur);
 
-    Object.keys(state).forEach((key) => {
+    Object.keys(state).forEach(key => {
       if (state[key]) {
         filtered = getFiltersCards(filtered, key, state[key]);
       }
@@ -63,22 +66,22 @@ class FilterList extends Component {
     showCardsConnect(filtered);
   };
 
-  onCurrencyHandler = (e) => {
+  onCurrencyHandler = e => {
     e.preventDefault();
     this.setState({ currency: e.target.id });
   };
 
-  onRoomHandler = (e) => {
+  onRoomHandler = e => {
     this.setState({ [e.target.name]: e.target.id });
   };
 
-  onPriceHandler = (e) => {
+  onPriceHandler = e => {
     this.setState({
       [e.target.id]: e.target.value,
     });
   };
 
-  onRatingHandler = (e) => {
+  onRatingHandler = e => {
     this.setState({ FILTER_RATING: e.target.id });
   };
 
@@ -99,19 +102,19 @@ class FilterList extends Component {
   };
 
   showClearButton = () => (
-    <div className="row text-left">
-      <div className="col-sm-10">
+    <div className='row text-left'>
+      <div className='col-sm-10'>
         <input
-          type="button"
-          value="Сбросить"
-          className="btn btn-outline-danger"
+          type='button'
+          value='Сбросить'
+          className='btn btn-outline-danger'
           onClick={this.onClearFilterHandler}
         />
       </div>
     </div>
   );
 
-  onRatingUIHandler = (value) => {
+  onRatingUIHandler = value => {
     switch (value) {
       case 'RATING_ONE':
         return 1;
@@ -138,102 +141,102 @@ class FilterList extends Component {
     } = this.state;
     const { filter } = this.props;
     return (
-      <div className="bg-white p-2">
-        <form className="text-left" onSubmit={this.onSubmit}>
-          <div className="mb-3">
+      <div className='bg-white p-2'>
+        <form className='text-left' onSubmit={this.onSubmit}>
+          <div className='mb-3'>
             <h4>Валюта</h4>
-            <div className="btn-group btn-group-toggle" data-toggle="buttons">
+            <div className='btn-group btn-group-toggle' data-toggle='buttons'>
               <CurrencyItem
-                id="CURRENCY_UAH"
-                label="UAH"
+                id='CURRENCY_UAH'
+                label='UAH'
                 isActive={currency === 'CURRENCY_UAH'}
                 checked={currency === 'CURRENCY_UAH'}
                 onChange={this.onCurrencyHandler}
               />
               <CurrencyItem
-                id="CURRENCY_USD"
-                label="USD"
+                id='CURRENCY_USD'
+                label='USD'
                 isActive={currency === 'CURRENCY_USD'}
                 checked={currency === 'CURRENCY_USD'}
                 onChange={this.onCurrencyHandler}
               />
               <CurrencyItem
-                id="CURRENCY_EUR"
-                label="EUR"
+                id='CURRENCY_EUR'
+                label='EUR'
                 isActive={currency === 'CURRENCY_EUR'}
                 checked={currency === 'CURRENCY_EUR'}
                 onChange={this.onCurrencyHandler}
               />
             </div>
           </div>
-          <div className="mb-3">
+          <div className='mb-3'>
             <h4>Количество комнат</h4>
             <FilterRooms
-              label="Все"
-              htmlFor="SHOW_ROOMS_ALL"
-              name="FILTER_ROOMS"
-              id="SHOW_ROOMS_ALL"
+              label='Все'
+              htmlFor='SHOW_ROOMS_ALL'
+              name='FILTER_ROOMS'
+              id='SHOW_ROOMS_ALL'
               checked={FILTER_ROOMS === 'SHOW_ROOMS_ALL'}
               onChange={this.onRoomHandler}
             />
             <FilterRooms
-              label="1 комната"
-              htmlFor="SHOW_ROOMS_ONE"
-              name="FILTER_ROOMS"
-              id="SHOW_ROOMS_ONE"
+              label='1 комната'
+              htmlFor='SHOW_ROOMS_ONE'
+              name='FILTER_ROOMS'
+              id='SHOW_ROOMS_ONE'
               checked={FILTER_ROOMS === 'SHOW_ROOMS_ONE'}
               onChange={this.onRoomHandler}
             />
             <FilterRooms
-              label="2 комнаты"
-              htmlFor="SHOW_ROOMS_TWO"
-              name="FILTER_ROOMS"
-              id="SHOW_ROOMS_TWO"
+              label='2 комнаты'
+              htmlFor='SHOW_ROOMS_TWO'
+              name='FILTER_ROOMS'
+              id='SHOW_ROOMS_TWO'
               checked={FILTER_ROOMS === 'SHOW_ROOMS_TWO'}
               onChange={this.onRoomHandler}
             />
             <FilterRooms
-              label="3 комнаты"
-              htmlFor="SHOW_ROOMS_THREE"
-              name="FILTER_ROOMS"
-              id="SHOW_ROOMS_THREE"
+              label='3 комнаты'
+              htmlFor='SHOW_ROOMS_THREE'
+              name='FILTER_ROOMS'
+              id='SHOW_ROOMS_THREE'
               checked={FILTER_ROOMS === 'SHOW_ROOMS_THREE'}
               onChange={this.onRoomHandler}
             />
           </div>
-          <div className="mb-3">
+          <div className='mb-3'>
             <h4>Цена</h4>
-            <div className="row ml-2">
+            <div className='row ml-2'>
               <FilterPrice
-                label="От"
-                htmlFor="SHOW_PRICE_FROM"
-                name="FILTER_PRICE_MIN"
-                id="FILTER_PRICE_MIN"
+                label='От'
+                htmlFor='SHOW_PRICE_FROM'
+                name='FILTER_PRICE_MIN'
+                id='FILTER_PRICE_MIN'
                 value={FILTER_PRICE_MIN}
                 onChange={this.onPriceHandler}
               />
               <FilterPrice
-                label="До"
-                htmlFor="SHOW_PRICE_TO"
-                name="FILTER_PRICE_MAX"
-                id="FILTER_PRICE_MAX"
+                label='До'
+                htmlFor='SHOW_PRICE_TO'
+                name='FILTER_PRICE_MAX'
+                id='FILTER_PRICE_MAX'
                 value={FILTER_PRICE_MAX}
                 onChange={this.onPriceHandler}
               />
             </div>
           </div>
-          <div className="mb-3">
+          <div className='mb-3'>
             <h4>Рейтинг</h4>
             <FilterRating
               rating={this.onRatingUIHandler(FILTER_RATING)}
               onClick={this.onRatingHandler}
             />
           </div>
-          <div className="form-group d-flex  justify-content-between flex-wrap">
-            <div className="mb-2">
-              <input type="submit" value="Подобрать" className="btn btn-outline-info" />
+          <div className='form-group d-flex  justify-content-between flex-wrap'>
+            <div className='mb-2'>
+              <input type='submit' value='Подобрать' className='btn btn-outline-info' />
             </div>
-            <div className="mb-2">{filter ? this.showClearButton() : null}</div>
+            <div className='mb-2'>{filter ? this.showClearButton() : null}</div>
           </div>
         </form>
       </div>
@@ -283,7 +286,4 @@ const mapDispatchToProps = {
   showCardsConnect: showCards,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(FilterList);
+export default connect(mapStateToProps, mapDispatchToProps)(FilterList);

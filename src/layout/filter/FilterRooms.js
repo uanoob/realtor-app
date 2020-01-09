@@ -1,19 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const filterRooms = ({
-  label, htmlFor, name, id, checked, onChange,
-}) => (
-  <div className="custom-control custom-radio">
+const filterRooms = ({ label, htmlFor, name, id, checked, onChange }) => (
+  <div className='custom-control custom-radio'>
     <input
-      className="custom-control-input"
-      type="radio"
+      className='custom-control-input'
+      type='radio'
       name={name}
       id={id}
       checked={checked}
       onChange={onChange}
     />
-    <label className="custom-control-label" htmlFor={htmlFor}>
+    <label className='custom-control-label' htmlFor={htmlFor}>
       {label}
     </label>
   </div>

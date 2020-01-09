@@ -14,9 +14,12 @@ import {
 import { toggleCurrency, getCurrencySign } from '../../utils/currency';
 
 class CurrencyBoard extends Component {
-  state = {
-    currency: 'CURRENCY_UAH',
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      currency: 'CURRENCY_UAH',
+    };
+  }
 
   componentDidMount() {
     const { getCurrencyUSDConnect, getCurrencyEURConnect } = this.props;
@@ -24,7 +27,7 @@ class CurrencyBoard extends Component {
     getCurrencyEURConnect();
   }
 
-  onCurrencyHandler = (e) => {
+  onCurrencyHandler = e => {
     e.preventDefault();
     const {
       cards,
@@ -48,22 +51,22 @@ class CurrencyBoard extends Component {
     return (
       <div>
         <h4>Валюта</h4>
-        <div className="btn-group btn-group-toggle" data-toggle="buttons">
+        <div className='btn-group btn-group-toggle' data-toggle='buttons'>
           <CurrencyItem
-            id="CURRENCY_UAH"
-            label="UAH"
+            id='CURRENCY_UAH'
+            label='UAH'
             isActive={currency === 'CURRENCY_UAH'}
             onChange={this.onCurrencyHandler}
           />
           <CurrencyItem
-            id="CURRENCY_USD"
-            label="USD"
+            id='CURRENCY_USD'
+            label='USD'
             isActive={currency === 'CURRENCY_USD'}
             onChange={this.onCurrencyHandler}
           />
           <CurrencyItem
-            id="CURRENCY_EUR"
-            label="EUR"
+            id='CURRENCY_EUR'
+            label='EUR'
             isActive={currency === 'CURRENCY_EUR'}
             onChange={this.onCurrencyHandler}
           />
@@ -108,7 +111,4 @@ const mapDispatchToProps = {
   isFilteredConnect: isFiltered,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(CurrencyBoard);
+export default connect(mapStateToProps, mapDispatchToProps)(CurrencyBoard);

@@ -1,34 +1,29 @@
 {
-  "extends": "airbnb",
   "env": {
     "browser": true,
     "es6": true,
     "jest": true
   },
+  "extends": ["plugin:react/recommended", "airbnb", "airbnb/hooks"],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
   "parser": "babel-eslint",
   "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
+    },
+    "ecmaVersion": 2018,
     "sourceType": "module"
   },
+  "plugins": ["react"],
   "rules": {
-    "no-underscore-dangle": [
-      "error",
-      { "allow": ["_id", "__REDUX_DEVTOOLS_EXTENSION__"] }
-    ],
-    "react/jsx-filename-extension": [
-      1,
-      {
-        "extensions": [".js", ".jsx"]
-      }
-    ],
-    "jsx-a11y/label-has-for": [
-      2,
-      {
-        "components": ["Label"],
-        "required": {
-          "every": ["id"]
-        },
-        "allowChildren": false
-      }
-    ]
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "jsx-quotes": ["error", "prefer-single"],
+    "arrow-parens": ["error", "as-needed"],
+    "no-underscore-dangle": ["error", { "allow": ["_id"] }],
+    "object-curly-newline": ["error", { "consistent": true }]
   }
 }
