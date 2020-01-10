@@ -32,14 +32,7 @@ class FilterList extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    const {
-      cards,
-      usd,
-      eur,
-      setCurrencySign,
-      isFiltered,
-      showCards,
-    } = this.props;
+    const { cards, usd, eur, setCurrencySign, isFiltered, showCards } = this.props;
     const { state } = this;
 
     const sign = getCurrencySign(state.currency);
@@ -218,10 +211,13 @@ class FilterList extends Component {
           </div>
           <div className='mb-3'>
             <h4>Рейтинг</h4>
-            <FilterRating
-              rating={this.onRatingUIHandler(FILTER_RATING)}
-              onClick={this.onRatingHandler}
-            />
+            <div className='mt-3 text-left text-warning'>
+              <FilterRating
+                rating={this.onRatingUIHandler(FILTER_RATING)}
+                onClick={this.onRatingHandler}
+                active
+              />
+            </div>
           </div>
           <div className='form-group d-flex  justify-content-between flex-wrap'>
             <div className='mb-2'>

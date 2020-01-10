@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-regular-svg-icons';
-import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
+import FilterRating from '../filter/FilterRating';
 
 const CardItem = ({ card, sign }) => {
   const showSign = currencySign => {
@@ -25,24 +23,9 @@ const CardItem = ({ card, sign }) => {
           <div className='mt-3'>
             <img src={card.images[0]} className='img-fluid mb-2' alt='' />
           </div>
-          <p className='mt-3 text-center text-warning'>
-            <i>
-              <FontAwesomeIcon icon={card.rating >= 1 ? faStarSolid : faStar} size='lg' />
-            </i>
-            <i>
-              <FontAwesomeIcon icon={card.rating >= 2 ? faStarSolid : faStar} size='lg' />
-            </i>
-            <i>
-              <FontAwesomeIcon icon={card.rating >= 3 ? faStarSolid : faStar} size='lg' />
-            </i>
-            <i>
-              <FontAwesomeIcon icon={card.rating >= 4 ? faStarSolid : faStar} size='lg' />
-            </i>
-
-            <i>
-              <FontAwesomeIcon icon={card.rating >= 5 ? faStarSolid : faStar} size='lg' />
-            </i>
-          </p>
+          <div className='mt-3 text-center text-warning'>
+            <FilterRating rating={card.rating} />
+          </div>
         </div>
         <div className='card-body col-md-12 col-lg-6 d-flex flex-column'>
           <h5 className='card-title'>{card.full_address}</h5>
