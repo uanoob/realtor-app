@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import CardItem from '../../layout/card/CardItem';
-import { getCards } from '../../store/actions';
+import * as actions from '../../store/actions';
 
 class CardList extends Component {
   componentDidMount() {
-    const { getCardsConnect } = this.props;
-    getCardsConnect();
+    const { getCards } = this.props;
+    getCards();
   }
 
   render() {
@@ -48,7 +48,7 @@ CardList.propTypes = {
   ).isRequired,
   sign: PropTypes.string.isRequired,
   filter: PropTypes.bool.isRequired,
-  getCardsConnect: PropTypes.func.isRequired,
+  getCards: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -58,6 +58,4 @@ const mapStateToProps = state => ({
   filter: state.card.filter,
 });
 
-const mapDispatchToProps = { getCardsConnect: getCards };
-
-export default connect(mapStateToProps, mapDispatchToProps)(CardList);
+export default connect(mapStateToProps, actions)(CardList);

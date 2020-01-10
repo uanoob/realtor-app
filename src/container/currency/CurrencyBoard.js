@@ -3,13 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import CurrencyItem from '../../layout/currency/CurrencyItem';
-import {
-  getCurrencyUSD,
-  getCurrencyEUR,
-  changeCurrency,
-  setCurrencySign,
-  isFiltered,
-} from '../../store/actions';
+import * as actions from '../../store/actions';
 
 import { toggleCurrency, getCurrencySign } from '../../utils/currency';
 
@@ -22,28 +16,20 @@ class CurrencyBoard extends Component {
   }
 
   componentDidMount() {
-    const { getCurrencyUSDConnect, getCurrencyEURConnect } = this.props;
-    getCurrencyUSDConnect();
-    getCurrencyEURConnect();
+    const { getCurrencyUSD, getCurrencyEUR } = this.props;
+    getCurrencyUSD();
+    getCurrencyEUR();
   }
 
   onCurrencyHandler = e => {
     e.preventDefault();
-    const {
-      cards,
-      usd,
-      eur,
-      changeCurrencyConnect,
-      setCurrencySignConnect,
-      isFilteredConnect,
-    } = this.props;
-    // console.log(e.target.id);
+    const { cards, usd, eur, changeCurrency, setCurrencySign, isFiltered } = this.props;
     const result = toggleCurrency(cards, e.target.id, usd, eur);
     this.setState({ currency: e.target.id });
-    isFilteredConnect(true);
-    changeCurrencyConnect(result);
+    isFiltered(true);
+    changeCurrency(result);
     const sign = getCurrencySign(e.target.id);
-    setCurrencySignConnect(sign);
+    setCurrencySign(sign);
   };
 
   render() {
@@ -90,11 +76,11 @@ CurrencyBoard.propTypes = {
   ).isRequired,
   usd: PropTypes.objectOf(PropTypes.string.isRequired).isRequired,
   eur: PropTypes.objectOf(PropTypes.string.isRequired).isRequired,
-  getCurrencyUSDConnect: PropTypes.func.isRequired,
-  getCurrencyEURConnect: PropTypes.func.isRequired,
-  changeCurrencyConnect: PropTypes.func.isRequired,
-  setCurrencySignConnect: PropTypes.func.isRequired,
-  isFilteredConnect: PropTypes.func.isRequired,
+  getCurrencyUSD: PropTypes.func.isRequired,
+  getCurrencyEUR: PropTypes.func.isRequired,
+  changeCurrency: PropTypes.func.isRequired,
+  setCurrencySign: PropTypes.func.isRequired,
+  isFiltered: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -103,12 +89,4 @@ const mapStateToProps = state => ({
   eur: state.currency.eur,
 });
 
-const mapDispatchToProps = {
-  getCurrencyUSDConnect: getCurrencyUSD,
-  getCurrencyEURConnect: getCurrencyEUR,
-  changeCurrencyConnect: changeCurrency,
-  setCurrencySignConnect: setCurrencySign,
-  isFilteredConnect: isFiltered,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CurrencyBoard);
+export default connect(mapStateToProps, actions)(CurrencyBoard);

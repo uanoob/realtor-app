@@ -10,16 +10,7 @@ import FilterRating from '../../layout/filter/FilterRating';
 import getFiltersCards from '../../utils/filters';
 import { toggleCurrency, getCurrencySign } from '../../utils/currency';
 
-import {
-  getCurrencyUSD,
-  getCurrencyEUR,
-  changeCurrency,
-  setCurrencySign,
-  clearCurrencySign,
-  resetFilters,
-  isFiltered,
-  showCards,
-} from '../../store/actions';
+import * as actions from '../../store/actions';
 
 class FilterList extends Component {
   constructor(props) {
@@ -34,9 +25,9 @@ class FilterList extends Component {
   }
 
   componentDidMount() {
-    const { getCurrencyUSDConnect, getCurrencyEURConnect } = this.props;
-    getCurrencyUSDConnect();
-    getCurrencyEURConnect();
+    const { getCurrencyUSD, getCurrencyEUR } = this.props;
+    getCurrencyUSD();
+    getCurrencyEUR();
   }
 
   onSubmit = e => {
@@ -45,14 +36,14 @@ class FilterList extends Component {
       cards,
       usd,
       eur,
-      setCurrencySignConnect,
-      isFilteredConnect,
-      showCardsConnect,
+      setCurrencySign,
+      isFiltered,
+      showCards,
     } = this.props;
     const { state } = this;
 
     const sign = getCurrencySign(state.currency);
-    setCurrencySignConnect(sign);
+    setCurrencySign(sign);
 
     let filtered = toggleCurrency(cards, state.currency, usd, eur);
 
@@ -62,8 +53,8 @@ class FilterList extends Component {
       }
     });
 
-    isFilteredConnect(true);
-    showCardsConnect(filtered);
+    isFiltered(true);
+    showCards(filtered);
   };
 
   onCurrencyHandler = e => {
@@ -88,7 +79,7 @@ class FilterList extends Component {
   resetCheckedInputput = () => false;
 
   onClearFilterHandler = () => {
-    const { resetFiltersConnect, clearCurrencySignConnect, isFilteredConnect } = this.props;
+    const { resetFilters, clearCurrencySign, isFiltered } = this.props;
     this.setState({
       currency: 'CURRENCY_UAH',
       FILTER_ROOMS: '',
@@ -96,9 +87,9 @@ class FilterList extends Component {
       FILTER_PRICE_MAX: '',
       FILTER_RATING: '',
     });
-    resetFiltersConnect();
-    clearCurrencySignConnect();
-    isFilteredConnect(false);
+    resetFilters();
+    clearCurrencySign();
+    isFiltered(false);
   };
 
   showClearButton = () => (
@@ -258,14 +249,14 @@ FilterList.propTypes = {
   ).isRequired,
   usd: PropTypes.objectOf(PropTypes.number.isRequired).isRequired,
   eur: PropTypes.objectOf(PropTypes.number.isRequired).isRequired,
-  getCurrencyUSDConnect: PropTypes.func.isRequired,
-  getCurrencyEURConnect: PropTypes.func.isRequired,
-  resetFiltersConnect: PropTypes.func.isRequired,
-  setCurrencySignConnect: PropTypes.func.isRequired,
-  clearCurrencySignConnect: PropTypes.func.isRequired,
+  getCurrencyUSD: PropTypes.func.isRequired,
+  getCurrencyEUR: PropTypes.func.isRequired,
+  resetFilters: PropTypes.func.isRequired,
+  setCurrencySign: PropTypes.func.isRequired,
+  clearCurrencySign: PropTypes.func.isRequired,
   filter: PropTypes.bool.isRequired,
-  isFilteredConnect: PropTypes.func.isRequired,
-  showCardsConnect: PropTypes.func.isRequired,
+  isFiltered: PropTypes.func.isRequired,
+  showCards: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -275,15 +266,4 @@ const mapStateToProps = state => ({
   filter: state.card.filter,
 });
 
-const mapDispatchToProps = {
-  getCurrencyUSDConnect: getCurrencyUSD,
-  getCurrencyEURConnect: getCurrencyEUR,
-  changeCurrencyConnect: changeCurrency,
-  setCurrencySignConnect: setCurrencySign,
-  clearCurrencySignConnect: clearCurrencySign,
-  resetFiltersConnect: resetFilters,
-  isFilteredConnect: isFiltered,
-  showCardsConnect: showCards,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(FilterList);
+export default connect(mapStateToProps, actions)(FilterList);
