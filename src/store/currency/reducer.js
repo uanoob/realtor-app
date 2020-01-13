@@ -3,7 +3,7 @@ import {
   GET_CURRENCY_EUR,
   SET_CURRENCY_SIGN,
   CLEAR_CURRENCY_SIGN,
-} from '../actions/types';
+} from './types';
 
 const initialState = {
   usd: {},
@@ -11,7 +11,7 @@ const initialState = {
   sign: '',
 };
 
-export default function (state = initialState, action) {
+export default (state = initialState, action) => {
   switch (action.type) {
     case GET_CURRENCY_USD:
       return { ...state, usd: action.payload };
@@ -24,4 +24,4 @@ export default function (state = initialState, action) {
     default:
       return state;
   }
-}
+};

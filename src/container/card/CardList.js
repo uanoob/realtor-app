@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import CardItem from '../../layout/card/CardItem';
-import * as actions from '../../store/actions';
+import * as actions from '../../store';
 
 class CardList extends Component {
   componentDidMount() {
@@ -52,10 +52,10 @@ CardList.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  data: state.card.data,
-  show: state.card.show,
+  data: state.property.data,
+  show: state.property.show,
   sign: state.currency.sign,
-  filter: state.card.filter,
+  filter: state.property.filter,
 });
 
 export default connect(mapStateToProps, actions)(CardList);

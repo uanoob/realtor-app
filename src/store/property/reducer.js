@@ -1,10 +1,6 @@
-import {
-  GET_CARDS,
-  SHOW_CARDS,
-  RESET_FILTERS,
-  IS_FILTERED,
-  CHANGE_CURRENCY,
-} from '../actions/types';
+import { GET_CARDS, SHOW_CARDS, RESET_FILTERS, IS_FILTERED } from './types';
+
+import { CHANGE_CURRENCY } from '../currency/types';
 
 const initialState = {
   data: [],
@@ -12,7 +8,7 @@ const initialState = {
   filter: false,
 };
 
-export default function (state = initialState, action) {
+export default (state = initialState, action) => {
   switch (action.type) {
     case GET_CARDS:
       return { ...state, data: action.payload };
@@ -27,4 +23,4 @@ export default function (state = initialState, action) {
     default:
       return state;
   }
-}
+};

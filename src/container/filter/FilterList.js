@@ -10,7 +10,7 @@ import FilterRating from '../../layout/filter/FilterRating';
 import getFiltersCards from '../../utils/filters';
 import { toggleCurrency, getCurrencySign } from '../../utils/currency';
 
-import * as actions from '../../store/actions';
+import * as actions from '../../store';
 
 class FilterList extends Component {
   constructor(props) {
@@ -256,10 +256,10 @@ FilterList.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  cards: state.card.data,
+  cards: state.property.data,
   usd: state.currency.usd,
   eur: state.currency.eur,
-  filter: state.card.filter,
+  filter: state.property.filter,
 });
 
 export default connect(mapStateToProps, actions)(FilterList);
