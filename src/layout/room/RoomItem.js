@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const filterRooms = ({ label, htmlFor, name, id, checked, onChange }) => (
+const RoomItem = ({ label, htmlFor, name, id, checked, onChange }) => (
   <div className='custom-control custom-radio'>
     <input
       className='custom-control-input'
@@ -17,7 +17,7 @@ const filterRooms = ({ label, htmlFor, name, id, checked, onChange }) => (
   </div>
 );
 
-filterRooms.propTypes = {
+RoomItem.propTypes = {
   label: PropTypes.string.isRequired,
   htmlFor: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
@@ -26,4 +26,4 @@ filterRooms.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default filterRooms;
+export default RoomItem;

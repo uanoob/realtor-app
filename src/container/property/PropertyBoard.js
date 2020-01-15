@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import CardItem from '../../layout/card/CardItem';
+import PropertyItem from '../../layout/property/PropertyItem';
 import * as actions from '../../store';
 
-class CardList extends Component {
+class PropertyBoard extends Component {
   componentDidMount() {
     const { getCards } = this.props;
     getCards();
@@ -16,14 +16,14 @@ class CardList extends Component {
     return (
       <div className='row text-left'>
         {cards.map(card => (
-          <CardItem key={card.id} card={card} sign={sign} />
+          <PropertyItem key={card.id} card={card} sign={sign} />
         ))}
       </div>
     );
   }
 }
 
-CardList.propTypes = {
+PropertyBoard.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -58,4 +58,4 @@ const mapStateToProps = state => ({
   filter: state.property.filter,
 });
 
-export default connect(mapStateToProps, actions)(CardList);
+export default connect(mapStateToProps, actions)(PropertyBoard);

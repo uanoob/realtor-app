@@ -1,4 +1,14 @@
-export { getCards, showCards, resetFilters, isFiltered } from './property/actions';
+export {
+  getCards,
+  showCards,
+  resetFilters,
+  isFiltered,
+  filterByRoom,
+  filterByRating,
+  filterByPriceMax,
+  filterByPriceMin,
+  setFilter,
+} from './property/actions';
 
 export {
   getCurrencyUSD,

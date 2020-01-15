@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import CurrencyItem from '../../layout/currency/CurrencyItem';
-import * as actions from '../../store/actions';
+import * as actions from '../../store';
 
 import { toggleCurrency, getCurrencySign } from '../../utils/currency';
 
@@ -35,28 +35,25 @@ class CurrencyBoard extends Component {
   render() {
     const { currency } = this.state;
     return (
-      <div>
-        <h4>Валюта</h4>
-        <div className='btn-group btn-group-toggle' data-toggle='buttons'>
-          <CurrencyItem
-            id='CURRENCY_UAH'
-            label='UAH'
-            isActive={currency === 'CURRENCY_UAH'}
-            onChange={this.onCurrencyHandler}
-          />
-          <CurrencyItem
-            id='CURRENCY_USD'
-            label='USD'
-            isActive={currency === 'CURRENCY_USD'}
-            onChange={this.onCurrencyHandler}
-          />
-          <CurrencyItem
-            id='CURRENCY_EUR'
-            label='EUR'
-            isActive={currency === 'CURRENCY_EUR'}
-            onChange={this.onCurrencyHandler}
-          />
-        </div>
+      <div className='btn-group btn-group-toggle' data-toggle='buttons'>
+        <CurrencyItem
+          id='CURRENCY_UAH'
+          label='UAH'
+          isActive={currency === 'CURRENCY_UAH'}
+          onChange={this.onCurrencyHandler}
+        />
+        <CurrencyItem
+          id='CURRENCY_USD'
+          label='USD'
+          isActive={currency === 'CURRENCY_USD'}
+          onChange={this.onCurrencyHandler}
+        />
+        <CurrencyItem
+          id='CURRENCY_EUR'
+          label='EUR'
+          isActive={currency === 'CURRENCY_EUR'}
+          onChange={this.onCurrencyHandler}
+        />
       </div>
     );
   }
@@ -84,7 +81,7 @@ CurrencyBoard.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  cards: state.card.data,
+  cards: state.property.data,
   usd: state.currency.usd,
   eur: state.currency.eur,
 });

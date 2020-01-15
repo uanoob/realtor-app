@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import FilterRating from '../filter/FilterRating';
+import RatingBoard from '../../container/rating/RatingBoard';
 
-const CardItem = ({ card, sign }) => {
+const PropertyItem = ({ card, sign }) => {
   const showSign = currencySign => {
     switch (currencySign) {
       case 'UAH':
@@ -23,9 +23,7 @@ const CardItem = ({ card, sign }) => {
           <div className='mt-3'>
             <img src={card.images[0]} className='img-fluid mb-2' alt='' />
           </div>
-          <div className='mt-3 text-center text-warning'>
-            <FilterRating rating={card.rating} />
-          </div>
+          <RatingBoard rating={card.rating} />
         </div>
         <div className='card-body col-md-12 col-lg-6 d-flex flex-column'>
           <h5 className='card-title'>{card.full_address}</h5>
@@ -58,7 +56,7 @@ const CardItem = ({ card, sign }) => {
   );
 };
 
-CardItem.propTypes = {
+PropertyItem.propTypes = {
   card: PropTypes.shape({
     id: PropTypes.number.isRequired,
     full_address: PropTypes.string.isRequired,
@@ -72,4 +70,4 @@ CardItem.propTypes = {
   sign: PropTypes.string.isRequired,
 };
 
-export default CardItem;
+export default PropertyItem;

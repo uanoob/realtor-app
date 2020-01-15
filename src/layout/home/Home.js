@@ -1,15 +1,15 @@
 import React from 'react';
-import FilterList from '../../container/filter/FilterList';
-import CardList from '../../container/card/CardList';
+import FilterBoard from '../../container/filter/FilterBoard';
+import PropertyBoard from '../../container/property/PropertyBoard';
 
 const Home = () => (
   <div className='container'>
     <div className='row'>
-      <div className='col-sm-12 col-md-4'>
-        <FilterList />
+      <div className='col-sm-12 col-md-5'>
+        <FilterBoard />
       </div>
-      <div className='col-sm-12 col-md-8'>
-        <CardList />
+      <div className='col-sm-12 col-md-7'>
+        <PropertyBoard />
       </div>
     </div>
   </div>
