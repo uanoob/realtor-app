@@ -46,10 +46,10 @@ export const getCurrencyEUR = () => async dispatch => {
   });
 };
 
-export const changeCurrency = cards => dispatch => {
+export const changeCurrency = rate => dispatch => {
   dispatch({
     type: CHANGE_CURRENCY,
-    payload: cards,
+    payload: rate,
   });
 };
 

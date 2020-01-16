@@ -23,11 +23,11 @@ class CurrencyBoard extends Component {
 
   onCurrencyHandler = e => {
     e.preventDefault();
-    const { cards, usd, eur, changeCurrency, setCurrencySign, isFiltered } = this.props;
-    const result = toggleCurrency(cards, e.target.id, usd, eur);
+    const { usd, eur, changeCurrency, setCurrencySign, isFiltered } = this.props;
+    const rate = toggleCurrency(e.target.id, usd, eur);
     this.setState({ currency: e.target.id });
     isFiltered(true);
-    changeCurrency(result);
+    changeCurrency(rate);
     const sign = getCurrencySign(e.target.id);
     setCurrencySign(sign);
   };
@@ -60,17 +60,6 @@ class CurrencyBoard extends Component {
 }
 
 CurrencyBoard.propTypes = {
-  cards: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      full_address: PropTypes.string.isRequired,
-      images: PropTypes.arrayOf(PropTypes.string.isRequired),
-      rating: PropTypes.number.isRequired,
-      total_rooms: PropTypes.number.isRequired,
-      public_date: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-    }),
-  ).isRequired,
   usd: PropTypes.objectOf(PropTypes.number.isRequired).isRequired,
   eur: PropTypes.objectOf(PropTypes.number.isRequired).isRequired,
   getCurrencyUSD: PropTypes.func.isRequired,
@@ -81,7 +70,6 @@ CurrencyBoard.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  cards: state.property.data,
   usd: state.currency.usd,
   eur: state.currency.eur,
 });

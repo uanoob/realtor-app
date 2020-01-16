@@ -41,7 +41,10 @@ export default (state = initialState, action) => {
         },
       };
     case CHANGE_CURRENCY:
-      return { ...state, show: action.payload };
+      return {
+        ...state,
+        show: state.data.map(item => ({ ...item, price: Math.floor(item.price / action.payload) })),
+      };
     case IS_FILTERED:
       return { ...state, filter: action.payload };
     case SET_FILTER:
