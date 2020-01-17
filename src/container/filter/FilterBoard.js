@@ -7,8 +7,6 @@ import RoomsBoard from '../room/RoomsBoard';
 import RatingBoard from '../rating/RatingBoard';
 import PriceBoard from '../price/PriceBoard';
 
-import { getRatingById } from '../../utils/filters';
-
 import * as actions from '../../store';
 
 class FilterBoard extends Component {
@@ -39,7 +37,7 @@ class FilterBoard extends Component {
         </div>
         <div className='mb-3'>
           <h4>Рейтинг</h4>
-          <RatingBoard rating={getRatingById(filters.rating)} active />
+          <RatingBoard rating={filters.rating} active />
         </div>
         <div className='mb-2'>
           {showClearButton ? (
@@ -63,7 +61,7 @@ class FilterBoard extends Component {
 FilterBoard.propTypes = {
   resetFilters: PropTypes.func.isRequired,
   clearCurrencySign: PropTypes.func.isRequired,
-  filters: PropTypes.objectOf(PropTypes.string.isRequired).isRequired,
+  filters: PropTypes.objectOf(PropTypes.number).isRequired,
   isFiltered: PropTypes.func.isRequired,
 };
 

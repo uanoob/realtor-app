@@ -16,10 +16,10 @@ const initialState = {
   data: [],
   show: [],
   filters: {
-    roomQuantity: '',
-    priceMin: '',
-    priceMax: '',
-    rating: '',
+    roomQuantity: null,
+    priceMin: null,
+    priceMax: null,
+    rating: null,
   },
   filter: false,
 };
@@ -34,10 +34,10 @@ export default (state = initialState, action) => {
       return {
         ...state,
         filters: {
-          roomQuantity: '',
-          priceMin: '',
-          priceMax: '',
-          rating: '',
+          roomQuantity: null,
+          priceMin: null,
+          priceMax: null,
+          rating: null,
         },
       };
     case CHANGE_CURRENCY:

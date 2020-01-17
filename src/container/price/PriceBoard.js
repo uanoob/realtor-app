@@ -22,12 +22,14 @@ class PriceBoard extends Component {
     const { priceMin, priceMax } = this.state;
     const { filterByPriceMax, filterByPriceMin, setFilter } = this.props;
     if (priceMin !== '') {
-      filterByPriceMin(priceMin);
-      setFilter('priceMin', priceMin);
+      const min = Number(priceMin);
+      filterByPriceMin(min);
+      setFilter('priceMin', min);
     }
     if (priceMax !== '') {
-      filterByPriceMax(priceMax);
-      setFilter('priceMax', priceMax);
+      const max = Number(priceMax);
+      filterByPriceMax(max);
+      setFilter('priceMax', max);
     }
     this.clearForm();
   };

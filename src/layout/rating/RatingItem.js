@@ -22,10 +22,11 @@ const RatingItem = ({ id, name, onClick, active, rating, status }) => (
 RatingItem.defaultProps = {
   onClick: () => {},
   active: false,
+  rating: null,
 };
 
 RatingItem.propTypes = {
-  rating: PropTypes.number.isRequired,
+  rating: PropTypes.number,
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   status: PropTypes.number.isRequired,

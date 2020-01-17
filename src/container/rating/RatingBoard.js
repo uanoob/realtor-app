@@ -10,8 +10,9 @@ import { getRatingById } from '../../utils/filters';
 class RatingBoard extends Component {
   handleRating = (name, value) => {
     const { filterByRating, setFilter } = this.props;
-    filterByRating(getRatingById(value));
-    setFilter(name, value);
+    const rating = getRatingById(value);
+    filterByRating(rating);
+    setFilter(name, rating);
   };
 
   render() {
@@ -65,12 +66,13 @@ class RatingBoard extends Component {
 
 RatingBoard.defaultProps = {
   active: false,
+  rating: null,
 };
 
 RatingBoard.propTypes = {
   filterByRating: PropTypes.func.isRequired,
   setFilter: PropTypes.func.isRequired,
-  rating: PropTypes.number.isRequired,
+  rating: PropTypes.number,
   active: PropTypes.bool,
 };
 

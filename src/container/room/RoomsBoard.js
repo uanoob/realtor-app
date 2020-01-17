@@ -10,8 +10,9 @@ import { getRoomById } from '../../utils/filters';
 class RoomsBoard extends Component {
   handleRooms = e => {
     const { filterByRoom, setFilter } = this.props;
-    filterByRoom(getRoomById(e.target.id));
-    setFilter(e.target.name, e.target.id);
+    const quantity = getRoomById(e.target.id);
+    filterByRoom(quantity);
+    setFilter(e.target.name, quantity);
   };
 
   render() {
@@ -21,25 +22,25 @@ class RoomsBoard extends Component {
         <RoomItem
           label='1 комната'
           htmlFor='SHOW_ROOMS_ONE'
-          name='room_quantity'
+          name='roomQuantity'
           id='SHOW_ROOMS_ONE'
-          checked={filters.room_quantity === 'SHOW_ROOMS_ONE'}
+          checked={filters.roomQuantity === 1}
           onChange={this.handleRooms}
         />
         <RoomItem
           label='2 комнаты'
           htmlFor='SHOW_ROOMS_TWO'
-          name='room_quantity'
+          name='roomQuantity'
           id='SHOW_ROOMS_TWO'
-          checked={filters.room_quantity === 'SHOW_ROOMS_TWO'}
+          checked={filters.roomQuantity === 2}
           onChange={this.handleRooms}
         />
         <RoomItem
           label='3 комнаты'
           htmlFor='SHOW_ROOMS_THREE'
-          name='room_quantity'
+          name='roomQuantity'
           id='SHOW_ROOMS_THREE'
-          checked={filters.room_quantity === 'SHOW_ROOMS_THREE'}
+          checked={filters.roomQuantity === 3}
           onChange={this.handleRooms}
         />
       </>
@@ -50,7 +51,7 @@ class RoomsBoard extends Component {
 RoomsBoard.propTypes = {
   filterByRoom: PropTypes.func.isRequired,
   setFilter: PropTypes.func.isRequired,
-  filters: PropTypes.objectOf(PropTypes.string.isRequired).isRequired,
+  filters: PropTypes.objectOf(PropTypes.number).isRequired,
 };
 
 const mapStateToProps = state => ({
