@@ -20,15 +20,13 @@ class PriceBoard extends Component {
   onSubmit = e => {
     e.preventDefault();
     const { priceMin, priceMax } = this.state;
-    const { filterByPriceMax, filterByPriceMin, setFilter } = this.props;
+    const { setFilter } = this.props;
     if (priceMin !== '') {
       const min = Number(priceMin);
-      filterByPriceMin(min);
       setFilter('priceMin', min);
     }
     if (priceMax !== '') {
       const max = Number(priceMax);
-      filterByPriceMax(max);
       setFilter('priceMax', max);
     }
     this.clearForm();
@@ -65,8 +63,6 @@ class PriceBoard extends Component {
 }
 
 PriceBoard.propTypes = {
-  filterByPriceMin: PropTypes.func.isRequired,
-  filterByPriceMax: PropTypes.func.isRequired,
   setFilter: PropTypes.func.isRequired,
 };
 

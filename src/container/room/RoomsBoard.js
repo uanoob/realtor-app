@@ -9,9 +9,8 @@ import { getRoomById } from '../../utils/filters';
 
 class RoomsBoard extends Component {
   handleRooms = e => {
-    const { filterByRoom, setFilter } = this.props;
+    const { setFilter } = this.props;
     const quantity = getRoomById(e.target.id);
-    filterByRoom(quantity);
     setFilter(e.target.name, quantity);
   };
 
@@ -49,7 +48,6 @@ class RoomsBoard extends Component {
 }
 
 RoomsBoard.propTypes = {
-  filterByRoom: PropTypes.func.isRequired,
   setFilter: PropTypes.func.isRequired,
   filters: PropTypes.objectOf(PropTypes.number).isRequired,
 };

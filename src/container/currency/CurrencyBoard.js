@@ -23,10 +23,9 @@ class CurrencyBoard extends Component {
 
   onCurrencyHandler = e => {
     e.preventDefault();
-    const { usd, eur, changeCurrency, setCurrencySign, isFiltered } = this.props;
+    const { usd, eur, changeCurrency, setCurrencySign } = this.props;
     const rate = toggleCurrency(e.target.id, usd, eur);
     this.setState({ currency: e.target.id });
-    isFiltered(true);
     changeCurrency(rate);
     const sign = getCurrencySign(e.target.id);
     setCurrencySign(sign);
@@ -66,7 +65,6 @@ CurrencyBoard.propTypes = {
   getCurrencyEUR: PropTypes.func.isRequired,
   changeCurrency: PropTypes.func.isRequired,
   setCurrencySign: PropTypes.func.isRequired,
-  isFiltered: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
