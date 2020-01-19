@@ -1,14 +1,8 @@
-import {
-  GET_CURRENCY_USD,
-  GET_CURRENCY_EUR,
-  SET_CURRENCY_SIGN,
-  CLEAR_CURRENCY_SIGN,
-} from './types';
+import { GET_CURRENCY_USD, GET_CURRENCY_EUR } from './types';
 
 const initialState = {
-  usd: {},
-  eur: {},
-  sign: '',
+  usd: null,
+  eur: null,
 };
 
 export default (state = initialState, action) => {
@@ -17,10 +11,6 @@ export default (state = initialState, action) => {
       return { ...state, usd: action.payload };
     case GET_CURRENCY_EUR:
       return { ...state, eur: action.payload };
-    case SET_CURRENCY_SIGN:
-      return { ...state, sign: action.payload };
-    case CLEAR_CURRENCY_SIGN:
-      return { ...state, sign: action.payload };
     default:
       return state;
   }

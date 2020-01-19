@@ -10,29 +10,58 @@ const priceMinSelector = state => state.property.filters.priceMin;
 
 const priceMaxSelector = state => state.property.filters.priceMax;
 
-const filteredByRoomSelector = createSelector(
+const currencySelector = state => state.property.filters.currency;
+
+const currencyRateUsd = state => state.currency.usd;
+
+const currencyRateEur = state => state.currency.eur;
+
+export const getCurrencyRate = (name, usd, eur) => {
+  switch (name) {
+    case 'uah':
+      return 1;
+    case 'usd':
+      return usd;
+    case 'eur':
+      return eur;
+    default:
+      return 1;
+  }
+};
+
+const filteredByCurrencySelector = createSelector(
   selectData,
+  currencySelector,
+  currencyRateUsd,
+  currencyRateEur,
+  (data, sign, usd, eur) => data.map(item => ({
+    ...item,
+    price: Math.floor(item.price / getCurrencyRate(sign, usd, eur)),
+  })),
+);
+
+const filteredByCurrencyRoomSelector = createSelector(
+  filteredByCurrencySelector,
   roomSelector,
   (data, quantity) => (quantity ? data.filter(item => item.total_rooms === quantity) : data),
 );
 
-const filteredByRoomAndRatingSelector = createSelector(
-  filteredByRoomSelector,
+const filteredByCurrencyRoomAndRatingSelector = createSelector(
+  filteredByCurrencyRoomSelector,
   ratingSelector,
   (data, rating) => (rating ? data.filter(item => item.rating === rating) : data),
 );
 
-const filteredByRoomRatingMinPriceSelector = createSelector(
-  filteredByRoomAndRatingSelector,
+const filteredByCurrencyRoomRatingMinPriceSelector = createSelector(
+  filteredByCurrencyRoomAndRatingSelector,
   priceMinSelector,
   (data, min) => (min ? data.filter(item => item.price > min) : data),
 );
 
-const filteredByRoomRatingMinPriceMaxPriceSelector = createSelector(
-  filteredByRoomRatingMinPriceSelector,
+const filteredByCurrencyRoomRatingMinPriceMaxPriceSelector = createSelector(
+  filteredByCurrencyRoomRatingMinPriceSelector,
   priceMaxSelector,
   (data, max) => (max ? data.filter(item => item.price <= max) : data),
 );
 
-
-export default filteredByRoomRatingMinPriceMaxPriceSelector;
+export default filteredByCurrencyRoomRatingMinPriceMaxPriceSelector;

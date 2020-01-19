@@ -1,10 +1,4 @@
-import {
-  GET_CARDS,
-  RESET_FILTERS,
-  SET_FILTER,
-} from './types';
-
-import { CHANGE_CURRENCY } from '../currency/types';
+import { GET_CARDS, RESET_FILTERS, SET_FILTER } from './types';
 
 const initialState = {
   data: [],
@@ -13,6 +7,7 @@ const initialState = {
     priceMin: null,
     priceMax: null,
     rating: null,
+    currency: 'uah',
   },
 };
 
@@ -28,12 +23,8 @@ export default (state = initialState, action) => {
           priceMin: null,
           priceMax: null,
           rating: null,
+          currency: 'uah',
         },
-      };
-    case CHANGE_CURRENCY:
-      return {
-        ...state,
-        show: state.data.map(item => ({ ...item, price: Math.floor(item.price / action.payload) })),
       };
     case SET_FILTER:
       return {

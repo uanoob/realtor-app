@@ -49,7 +49,13 @@ class RoomsBoard extends Component {
 
 RoomsBoard.propTypes = {
   setFilter: PropTypes.func.isRequired,
-  filters: PropTypes.objectOf(PropTypes.number).isRequired,
+  filters: PropTypes.shape({
+    roomQuantity: PropTypes.number,
+    priceMin: PropTypes.number,
+    priceMax: PropTypes.number,
+    rating: PropTypes.number,
+    currency: PropTypes.string,
+  }).isRequired,
 };
 
 const mapStateToProps = state => ({

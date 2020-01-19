@@ -41,7 +41,7 @@ PropertyBoard.propTypes = {
 
 const mapStateToProps = state => ({
   data: dataSelector(state),
-  sign: state.currency.sign,
+  sign: state.property.filters.currency,
 });
 
 export default connect(mapStateToProps, actions)(PropertyBoard);

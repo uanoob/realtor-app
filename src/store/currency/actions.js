@@ -1,13 +1,8 @@
 import axios from 'axios';
 import { Cookies } from 'react-cookie';
 
-import {
-  GET_CURRENCY_USD,
-  GET_CURRENCY_EUR,
-  CHANGE_CURRENCY,
-  SET_CURRENCY_SIGN,
-  CLEAR_CURRENCY_SIGN,
-} from './types';
+import { GET_CURRENCY_USD, GET_CURRENCY_EUR } from './types';
+
 import API_URI from '../../config/config';
 import API_KEY from '../../config/key';
 
@@ -30,7 +25,7 @@ export const getCurrencyUSD = () => async dispatch => {
   }
   dispatch({
     type: GET_CURRENCY_USD,
-    payload: response.data,
+    payload: response.data.USD_UAH,
   });
 };
 
@@ -42,27 +37,6 @@ export const getCurrencyEUR = () => async dispatch => {
   }
   dispatch({
     type: GET_CURRENCY_EUR,
-    payload: response.data,
-  });
-};
-
-export const changeCurrency = rate => dispatch => {
-  dispatch({
-    type: CHANGE_CURRENCY,
-    payload: rate,
-  });
-};
-
-export const setCurrencySign = sign => dispatch => {
-  dispatch({
-    type: SET_CURRENCY_SIGN,
-    payload: sign,
-  });
-};
-
-export const clearCurrencySign = () => dispatch => {
-  dispatch({
-    type: CLEAR_CURRENCY_SIGN,
-    payload: '',
+    payload: response.data.EUR_UAH,
   });
 };

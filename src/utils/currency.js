@@ -1,25 +1,25 @@
-export const toggleCurrency = (name, usd, eur) => {
-  switch (name) {
+export const getCurrencySign = id => {
+  switch (id) {
     case 'CURRENCY_UAH':
-      return 1;
+      return 'uah';
     case 'CURRENCY_USD':
-      return usd.USD_UAH;
+      return 'usd';
     case 'CURRENCY_EUR':
-      return eur.EUR_UAH;
+      return 'eur';
     default:
-      return 1;
+      return 'uah';
   }
 };
 
-export const getCurrencySign = sign => {
-  switch (sign) {
-    case 'CURRENCY_UAH':
-      return 'UAH';
-    case 'CURRENCY_USD':
-      return 'USD';
-    case 'CURRENCY_EUR':
-      return 'EUR';
+export const renderCurrencySign = currencySign => {
+  switch (currencySign) {
+    case 'uah':
+      return '\u20B4';
+    case 'usd':
+      return '\u0024';
+    case 'eur':
+      return '\u20AC';
     default:
-      return 'UAH';
+      return '\u20B4';
   }
 };

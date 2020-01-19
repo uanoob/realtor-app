@@ -11,9 +11,8 @@ import * as actions from '../../store';
 
 class FilterBoard extends Component {
   handleClearFilter = () => {
-    const { resetFilters, clearCurrencySign } = this.props;
+    const { resetFilters } = this.props;
     resetFilters();
-    clearCurrencySign();
   };
 
   render() {
@@ -59,8 +58,13 @@ class FilterBoard extends Component {
 
 FilterBoard.propTypes = {
   resetFilters: PropTypes.func.isRequired,
-  clearCurrencySign: PropTypes.func.isRequired,
-  filters: PropTypes.objectOf(PropTypes.number).isRequired,
+  filters: PropTypes.shape({
+    roomQuantity: PropTypes.number,
+    priceMin: PropTypes.number,
+    priceMax: PropTypes.number,
+    rating: PropTypes.number,
+    currency: PropTypes.string,
+  }).isRequired,
 };
 
 const mapStateToProps = state => ({
