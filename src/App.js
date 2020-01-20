@@ -5,6 +5,7 @@ import { CookiesProvider } from 'react-cookie';
 import store from './store/store';
 import Header from './layout/header/Header';
 import Home from './layout/home/Home';
+import PropertyPage from './layout/property/PropertyPage';
 import About from './layout/about/About';
 import NotFound from './layout/notFound/NotFound';
 
@@ -17,6 +18,7 @@ const App = () => (
           <div className='container'>
             <Switch>
               <Route exact path='/' component={Home} />
+              <Route exact path='/property' component={PropertyPage} />
               <Route exact path='/about' component={About} />
               <Route component={NotFound} />
             </Switch>
