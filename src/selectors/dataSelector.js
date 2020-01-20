@@ -16,6 +16,14 @@ const currencyRateUsd = state => state.currency.usd;
 
 const currencyRateEur = state => state.currency.eur;
 
+const filterByRoom = (item, room) => (room ? item.total_rooms === room : true);
+
+const filterByRating = (item, rating) => (rating ? item.rating === rating : true);
+
+const filterByPriceMin = (item, min) => (min ? item.price > min : true);
+
+const filterByPriceMax = (item, max) => (max ? item.price <= max : true);
+
 export const getCurrencyRate = (name, usd, eur) => {
   switch (name) {
     case 'uah':
@@ -40,28 +48,18 @@ const filteredByCurrencySelector = createSelector(
   })),
 );
 
-const filteredByCurrencyRoomSelector = createSelector(
+const filteredSelector = createSelector(
   filteredByCurrencySelector,
   roomSelector,
-  (data, quantity) => (quantity ? data.filter(item => item.total_rooms === quantity) : data),
-);
-
-const filteredByCurrencyRoomAndRatingSelector = createSelector(
-  filteredByCurrencyRoomSelector,
   ratingSelector,
-  (data, rating) => (rating ? data.filter(item => item.rating === rating) : data),
-);
-
-const filteredByCurrencyRoomRatingMinPriceSelector = createSelector(
-  filteredByCurrencyRoomAndRatingSelector,
   priceMinSelector,
-  (data, min) => (min ? data.filter(item => item.price > min) : data),
-);
-
-const filteredByCurrencyRoomRatingMinPriceMaxPriceSelector = createSelector(
-  filteredByCurrencyRoomRatingMinPriceSelector,
   priceMaxSelector,
-  (data, max) => (max ? data.filter(item => item.price <= max) : data),
+  (data, room, rating, min, max) => data.filter(
+    item => filterByRoom(item, room)
+        && filterByRating(item, rating)
+        && filterByPriceMin(item, min)
+        && filterByPriceMax(item, max),
+  ),
 );
 
-export default filteredByCurrencyRoomRatingMinPriceMaxPriceSelector;
+export default filteredSelector;
