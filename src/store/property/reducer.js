@@ -3,7 +3,7 @@ import { GET_CARDS, RESET_FILTERS, SET_FILTER } from './types';
 const initialState = {
   data: [],
   filters: {
-    roomQuantity: null,
+    room: null,
     priceMin: null,
     priceMax: null,
     rating: null,
@@ -19,7 +19,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         filters: {
-          roomQuantity: null,
+          room: null,
           priceMin: null,
           priceMax: null,
           rating: null,

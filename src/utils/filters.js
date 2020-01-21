@@ -1,3 +1,16 @@
+import queryString from 'query-string';
+
+export const pushToUrlWithQuery = (history, filters, name, value) => {
+  const qs = queryString.stringify({ ...filters, [name]: value }, { skipNull: true });
+  history.push({ pathname: history.location.pathname, search: qs });
+};
+
+export const pushToUrlWithoutQuery = history => history.push(history.location.pathname);
+
+export const getParsedObject = history => queryString.parse(history.location.search);
+
+export const getNumberFromString = (name, value) => (name === 'currency' ? value : Number(value));
+
 export const getRoomById = id => {
   switch (id) {
     case 'SHOW_ROOMS_ONE':
@@ -7,7 +20,7 @@ export const getRoomById = id => {
     case 'SHOW_ROOMS_THREE':
       return 3;
     default:
-      return 1;
+      return 0;
   }
 };
 

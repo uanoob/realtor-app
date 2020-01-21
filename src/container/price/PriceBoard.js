@@ -1,69 +1,65 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
-import * as actions from '../../store';
 
 import PriceItem from '../../layout/price/PriceItem';
 
-class PriceBoard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      priceMin: '',
-      priceMax: '',
-    };
-  }
+const PriceBoard = ({ handleFilter, min, max }) => {
+  const [priceMin, setPriceMin] = useState(min);
+  const [priceMax, setPriceMax] = useState(max);
 
-  handlePrice = e => this.setState({ [e.target.name]: e.target.value });
-
-  onSubmit = e => {
-    e.preventDefault();
-    const { priceMin, priceMax } = this.state;
-    const { setFilter } = this.props;
-    if (priceMin !== '') {
-      const min = Number(priceMin);
-      setFilter('priceMin', min);
+  const handlePrice = e => {
+    if (e.target.name === 'priceMin') {
+      setPriceMin(e.target.value);
     }
-    if (priceMax !== '') {
-      const max = Number(priceMax);
-      setFilter('priceMax', max);
+    if (e.target.name === 'priceMax') {
+      setPriceMax(e.target.value);
     }
-    this.clearForm();
   };
 
-  clearForm = () => this.setState({ priceMin: '', priceMax: '' });
+  const onSubmit = e => {
+    e.preventDefault();
+    if (priceMin) {
+      handleFilter('priceMin', Number(priceMin));
+    }
+    if (priceMax) {
+      handleFilter('priceMax', Number(priceMax));
+    }
+  };
 
-  render() {
-    const { priceMin, priceMax } = this.state;
-    return (
-      <form className='row' onSubmit={this.onSubmit}>
-        <div className='form-group d-flex  justify-content-between flex-wrap wrap'>
-          <PriceItem
-            placeholder='От'
-            name='priceMin'
-            id='FILTER_PRICE_MIN'
-            value={priceMin}
-            onChange={this.handlePrice}
-          />
-          <PriceItem
-            placeholder='До'
-            name='priceMax'
-            id='FILTER_PRICE_MAX'
-            value={priceMax}
-            onChange={this.handlePrice}
-          />
-          <div className='mr-4'>
-            <input type='submit' value='Ok' className='btn btn-outline-info' />
-          </div>
+  return (
+    <form className='row' onSubmit={onSubmit}>
+      <div className='form-group d-flex  justify-content-between flex-wrap wrap'>
+        <PriceItem
+          placeholder='От'
+          name='priceMin'
+          id='FILTER_PRICE_MIN'
+          value={priceMin}
+          onChange={handlePrice}
+        />
+        <PriceItem
+          placeholder='До'
+          name='priceMax'
+          id='FILTER_PRICE_MAX'
+          value={priceMax}
+          onChange={handlePrice}
+        />
+        <div className='mr-4'>
+          <input type='submit' value='Ok' className='btn btn-outline-info' />
         </div>
-      </form>
-    );
-  }
-}
-
-PriceBoard.propTypes = {
-  setFilter: PropTypes.func.isRequired,
+      </div>
+    </form>
+  );
 };
 
-export default connect(null, actions)(PriceBoard);
+PriceBoard.defaultProps = {
+  min: null,
+  max: null,
+};
+
+PriceBoard.propTypes = {
+  handleFilter: PropTypes.func.isRequired,
+  min: PropTypes.number,
+  max: PropTypes.number,
+};
+
+export default PriceBoard;

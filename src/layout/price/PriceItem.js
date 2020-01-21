@@ -9,17 +9,21 @@ const PriceItem = ({ placeholder, name, id, value, onChange }) => (
       placeholder={placeholder}
       name={name}
       id={id}
-      value={value}
+      value={value || ''}
       onChange={onChange}
     />
   </div>
 );
 
+PriceItem.defaultProps = {
+  value: '',
+};
+
 PriceItem.propTypes = {
   placeholder: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
 };
 

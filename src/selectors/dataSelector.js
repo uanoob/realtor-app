@@ -4,7 +4,7 @@ const selectData = state => state.property.data;
 
 const ratingSelector = state => state.property.filters.rating;
 
-const roomSelector = state => state.property.filters.roomQuantity;
+const roomSelector = state => state.property.filters.room;
 
 const priceMinSelector = state => state.property.filters.priceMin;
 

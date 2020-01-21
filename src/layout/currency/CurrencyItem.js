@@ -9,7 +9,7 @@ const CurrencyItem = ({ id, label, onChange, isActive }) => (
     })}
     htmlFor={id}
   >
-    <input type='radio' name='CHANGE_CURRENCY' id={id} onChange={onChange} />
+    <input type='radio' name='currency' id={id} onChange={onChange} />
     {label}
   </label>
 );
