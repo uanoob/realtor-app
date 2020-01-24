@@ -3,7 +3,7 @@ import { Cookies } from 'react-cookie';
 
 import { GET_CURRENCY_USD, GET_CURRENCY_EUR } from './types';
 
-import config from '../../config';
+import { CURRENCY_CONVERTER_API_URI as uri, CURRENCY_CONVERTER_API_KEY as key } from '../../config';
 
 const getCookies = name => {
   const cookies = new Cookies();
@@ -19,9 +19,7 @@ const setCookies = (name, response) => {
 export const getCurrencyUSD = () => async dispatch => {
   let response = getCookies('usd_uan');
   if (!response) {
-    response = await axios.get(
-      `${config.currencyConverterApiUri}/convert?q=USD_UAH&compact=ultra&apiKey=${config.currencyConverterApiKey}`,
-    );
+    response = await axios.get(`${uri}/convert?q=USD_UAH&compact=ultra&apiKey=${key}`);
     setCookies('usd_uan', response);
   }
   dispatch({
@@ -33,9 +31,7 @@ export const getCurrencyUSD = () => async dispatch => {
 export const getCurrencyEUR = () => async dispatch => {
   let response = getCookies('eur_uan');
   if (!response) {
-    response = await axios.get(
-      `${config.currencyConverterApiUri}/convert?q=EUR_UAH&compact=ultra&apiKey=${config.currencyConverterApiKey}`,
-    );
+    response = await axios.get(`${uri}/convert?q=EUR_UAH&compact=ultra&apiKey=${key}`);
     setCookies('eur_uan', response);
   }
   dispatch({

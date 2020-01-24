@@ -1,2 +1,2 @@
-// config.js - figure out what set of credentials to return
-module.exports = process.env.NODE_ENV === 'production' ? require('./prod.config') : require('./dev.config');
+export const CURRENCY_CONVERTER_API_URI = 'https://free.currconv.com/api/v7';
+export const CURRENCY_CONVERTER_API_KEY = 'f5ef956c0fd353a31b4f';
