@@ -40,3 +40,18 @@ export const getRatingById = id => {
       return 0;
   }
 };
+
+export const getSelectionByName = name => {
+  switch (name) {
+    case 'priceMin':
+      return 'Цена от:';
+    case 'priceMax':
+      return 'Цена до:';
+    case 'rating':
+      return 'Рейтинг:';
+    case 'room':
+      return 'Комнаты:';
+    default:
+      return '';
+  }
+};

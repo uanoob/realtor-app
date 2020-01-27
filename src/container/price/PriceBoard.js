@@ -16,6 +16,11 @@ const PriceBoard = ({ handleFilter, min, max }) => {
     }
   };
 
+  const clearForm = () => {
+    setPriceMin(null);
+    setPriceMax(null);
+  };
+
   const onSubmit = e => {
     e.preventDefault();
     if (priceMin) {
@@ -24,6 +29,7 @@ const PriceBoard = ({ handleFilter, min, max }) => {
     if (priceMax) {
       handleFilter('priceMax', Number(priceMax));
     }
+    clearForm();
   };
 
   return (

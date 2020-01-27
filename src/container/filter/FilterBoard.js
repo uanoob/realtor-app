@@ -6,6 +6,7 @@ import CurrencyBoard from '../currency/CurrencyBoard';
 import RoomsBoard from '../room/RoomsBoard';
 import RatingBoard from '../rating/RatingBoard';
 import PriceBoard from '../price/PriceBoard';
+import SelectionBoard from '../selection/SelectionBoard';
 
 import {
   pushToUrlWithQuery,
@@ -29,7 +30,7 @@ class FilterBoard extends Component {
     pushToUrlWithQuery(history, filters, name, value);
   };
 
-  handleClearFilter = () => {
+  handleClearFilters = () => {
     const { resetFilters, history } = this.props;
     resetFilters();
     pushToUrlWithoutQuery(history);
@@ -37,7 +38,8 @@ class FilterBoard extends Component {
 
   render() {
     const { filters, getCurrencyUSD, getCurrencyEUR } = this.props;
-    const showClearButton = filters.room || filters.priceMin || filters.priceMax || filters.rating;
+    const showSelectionBoard = filters.room || filters.priceMin || filters.priceMax
+    || filters.rating;
     return (
       <div className='bg-white p-2 text-left'>
         <div className='mb-3'>
@@ -66,17 +68,12 @@ class FilterBoard extends Component {
           <RatingBoard handleFilter={this.handleFilter} rating={filters.rating} active />
         </div>
         <div className='mb-2'>
-          {showClearButton ? (
-            <div className='row text-left'>
-              <div className='col-sm-10'>
-                <input
-                  type='button'
-                  value='Сбросить'
-                  className='btn btn-outline-danger'
-                  onClick={this.handleClearFilter}
-                />
-              </div>
-            </div>
+          {showSelectionBoard ? (
+            <SelectionBoard
+              filters={filters}
+              handleFilter={this.handleFilter}
+              handleClearFilters={this.handleClearFilters}
+            />
           ) : null}
         </div>
       </div>
