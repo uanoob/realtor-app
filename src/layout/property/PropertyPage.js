@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import FilterBoard from '../../container/filter/FilterBoard';
 import PropertyBoard from '../../container/property/PropertyBoard';
 
-const PropertyPage = ({ history }) => (
+const PropertyPage = () => (
   <div className='container'>
     <div className='row'>
       <div className='col-sm-12 col-md-5'>
-        <FilterBoard history={history} />
+        <FilterBoard />
       </div>
       <div className='col-sm-12 col-md-7'>
         <PropertyBoard />

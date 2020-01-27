@@ -9,7 +9,7 @@ export const pushToUrlWithoutQuery = history => history.push(history.location.pa
 
 export const getParsedObject = history => queryString.parse(history.location.search);
 
-export const getNumberFromString = (name, value) => (name === 'currency' ? value : Number(value));
+export const parseToNumber = (name, value) => (name === 'currency' ? value : parseInt(value, 10));
 
 export const getRoomById = id => {
   switch (id) {
