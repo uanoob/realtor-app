@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_CARDS, RESET_FILTERS, SET_FILTER } from './types';
+import { GET_CARDS, SET_FILTERS } from './types';
 
 export const getCards = () => async dispatch => {
   const response = await axios.get('https://realtor-app-test.firebaseio.com/data.json');
@@ -9,15 +9,9 @@ export const getCards = () => async dispatch => {
   });
 };
 
-export const resetFilters = () => dispatch => {
+export const setFilters = parsed => dispatch => {
   dispatch({
-    type: RESET_FILTERS,
-  });
-};
-
-export const setFilter = (name, value) => dispatch => {
-  dispatch({
-    type: SET_FILTER,
-    payload: { name, value },
+    type: SET_FILTERS,
+    payload: parsed,
   });
 };

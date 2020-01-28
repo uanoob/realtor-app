@@ -1,4 +1,4 @@
-import { GET_CARDS, RESET_FILTERS, SET_FILTER } from './types';
+import { GET_CARDS, SET_FILTERS } from './types';
 
 const initialState = {
   data: [],
@@ -15,21 +15,10 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case GET_CARDS:
       return { ...state, data: action.payload };
-    case RESET_FILTERS:
+    case SET_FILTERS:
       return {
         ...state,
-        filters: {
-          room: null,
-          priceMin: null,
-          priceMax: null,
-          rating: null,
-          currency: 'uah',
-        },
-      };
-    case SET_FILTER:
-      return {
-        ...state,
-        filters: { ...state.filters, [action.payload.name]: action.payload.value },
+        filters: { ...initialState.filters, ...action.payload },
       };
     default:
       return state;

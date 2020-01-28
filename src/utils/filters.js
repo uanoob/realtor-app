@@ -1,15 +1,11 @@
-import queryString from 'query-string';
+import qs from 'query-string';
 
-export const pushToUrlWithQuery = (history, filters, name, value) => {
-  const qs = queryString.stringify({ ...filters, [name]: value }, { skipNull: true });
-  history.push({ pathname: history.location.pathname, search: qs });
+export const pushToUrl = (history, filters, name, value) => {
+  const query = qs.stringify({ ...filters, [name]: value }, { skipNull: true });
+  history.push({ pathname: history.location.pathname, search: query });
 };
 
-export const pushToUrlWithoutQuery = history => history.push(history.location.pathname);
-
-export const getParsedObject = history => queryString.parse(history.location.search);
-
-export const parseToNumber = (name, value) => (name === 'currency' ? value : parseInt(value, 10));
+export const parsedQuery = history => qs.parse(history.location.search, { parseNumbers: true });
 
 export const getRoomById = id => {
   switch (id) {

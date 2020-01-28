@@ -9,32 +9,25 @@ import RatingBoard from '../rating/RatingBoard';
 import PriceBoard from '../price/PriceBoard';
 import SelectionBoard from '../selection/SelectionBoard';
 
-import {
-  pushToUrlWithQuery,
-  pushToUrlWithoutQuery,
-  getParsedObject,
-  parseToNumber,
-} from '../../utils/filters';
+import { pushToUrl, parsedQuery } from '../../utils/filters';
 
 import * as actions from '../../store';
 
-const FilterBoard = ({ setFilter, resetFilters, filters, getCurrencyUSD, getCurrencyEUR }) => {
+const FilterBoard = ({ setFilters, filters, getCurrencyUSD, getCurrencyEUR }) => {
   const history = useHistory();
   const location = useLocation();
 
   useEffect(() => {
-    const parsed = getParsedObject(history);
-    Object.keys(parsed).forEach(name => setFilter(name, parseToNumber(name, parsed[name])));
-  }, [history, setFilter, location]);
+    const parsed = parsedQuery(history);
+    setFilters(parsed);
+  }, [history, setFilters, location]);
 
   const handleFilter = (name, value) => {
-    setFilter(name, value);
-    pushToUrlWithQuery(history, filters, name, value);
+    pushToUrl(history, filters, name, value);
   };
 
   const handleClearFilters = () => {
-    resetFilters();
-    pushToUrlWithoutQuery(history);
+    pushToUrl(history);
   };
 
   const showSelectionBoard = filters.room || filters.priceMin || filters.priceMax || filters.rating;
@@ -75,8 +68,7 @@ const FilterBoard = ({ setFilter, resetFilters, filters, getCurrencyUSD, getCurr
 };
 
 FilterBoard.propTypes = {
-  resetFilters: PropTypes.func.isRequired,
-  setFilter: PropTypes.func.isRequired,
+  setFilters: PropTypes.func.isRequired,
   getCurrencyUSD: PropTypes.func.isRequired,
   getCurrencyEUR: PropTypes.func.isRequired,
   filters: PropTypes.shape({

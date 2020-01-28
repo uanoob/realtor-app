@@ -7,7 +7,7 @@ const PriceBoard = ({ handleFilter, min, max }) => {
   const [priceMin, setPriceMin] = useState(min);
   const [priceMax, setPriceMax] = useState(max);
 
-  const handlePrice = e => {
+  const onChange = e => {
     if (e.target.name === 'priceMin') {
       setPriceMin(e.target.value);
     }
@@ -21,8 +21,7 @@ const PriceBoard = ({ handleFilter, min, max }) => {
     setPriceMax(null);
   };
 
-  const onSubmit = e => {
-    e.preventDefault();
+  const onClick = () => {
     if (priceMin) {
       handleFilter('priceMin', Number(priceMin));
     }
@@ -33,27 +32,32 @@ const PriceBoard = ({ handleFilter, min, max }) => {
   };
 
   return (
-    <form className='row' onSubmit={onSubmit}>
+    <>
       <div className='form-group d-flex  justify-content-between flex-wrap wrap'>
         <PriceItem
           placeholder='От'
           name='priceMin'
           id='FILTER_PRICE_MIN'
           value={priceMin}
-          onChange={handlePrice}
+          onChange={onChange}
         />
+        <div className='mr-4'>
+          <input type='button' value='Ok' className='btn btn-outline-info' onClick={onClick} />
+        </div>
+      </div>
+      <div className='form-group d-flex  justify-content-between flex-wrap wrap'>
         <PriceItem
           placeholder='До'
           name='priceMax'
           id='FILTER_PRICE_MAX'
           value={priceMax}
-          onChange={handlePrice}
+          onChange={onChange}
         />
         <div className='mr-4'>
-          <input type='submit' value='Ok' className='btn btn-outline-info' />
+          <input type='button' value='Ok' className='btn btn-outline-info' onClick={onClick} />
         </div>
       </div>
-    </form>
+    </>
   );
 };
 
