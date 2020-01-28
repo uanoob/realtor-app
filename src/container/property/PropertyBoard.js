@@ -1,27 +1,23 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import PropertyItem from '../../layout/property/PropertyItem';
 import * as actions from '../../store';
 import dataSelector from '../../selectors/dataSelector';
 
-class PropertyBoard extends Component {
-  componentDidMount() {
-    const { getCards } = this.props;
+const PropertyBoard = ({ getCards, data, sign }) => {
+  useEffect(() => {
     getCards();
-  }
+  }, [getCards]);
 
-  render() {
-    const { data, sign } = this.props;
-    return (
-      <div className='row text-left'>
-        {data.map(card => (
-          <PropertyItem key={card.id} card={card} sign={sign} />
-        ))}
-      </div>
-    );
-  }
-}
+  return (
+    <div className='row text-left'>
+      {data.map(card => (
+        <PropertyItem key={card.id} card={card} sign={sign} />
+      ))}
+    </div>
+  );
+};
 
 PropertyBoard.propTypes = {
   data: PropTypes.arrayOf(
