@@ -24,6 +24,7 @@
     "jsx-quotes": ["error", "prefer-single"],
     "arrow-parens": ["error", "as-needed"],
     "no-underscore-dangle": ["error", { "allow": ["_id"] }],
-    "object-curly-newline": ["error", { "consistent": true }]
+    "object-curly-newline": ["error", { "consistent": true }],
+    "max-len": ["error", { "code": 120 }]
   }
 }

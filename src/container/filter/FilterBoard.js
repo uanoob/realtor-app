@@ -9,7 +9,7 @@ import RatingBoard from '../rating/RatingBoard';
 import PriceBoard from '../price/PriceBoard';
 import SelectionBoard from '../selection/SelectionBoard';
 
-import { pushToUrl, parsedQuery } from '../../utils/filters';
+import { pushToUrl, stringifyQuery, parsedQuery } from '../../utils/filters';
 
 import * as actions from '../../store';
 
@@ -22,8 +22,9 @@ const FilterBoard = ({ setFilters, filters, getCurrencyUSD, getCurrencyEUR }) =>
     setFilters(parsed);
   }, [history, setFilters, location]);
 
-  const handleFilter = (name, value) => {
-    pushToUrl(history, filters, name, value);
+  const handleFilter = (key, value) => {
+    const query = stringifyQuery(filters, key, value);
+    pushToUrl(history, query);
   };
 
   const handleClearFilters = () => {

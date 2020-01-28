@@ -1,9 +1,8 @@
 import qs from 'query-string';
 
-export const pushToUrl = (history, filters, name, value) => {
-  const query = qs.stringify({ ...filters, [name]: value }, { skipNull: true });
-  history.push({ pathname: history.location.pathname, search: query });
-};
+export const pushToUrl = (history, query) => history.push({ pathname: history.location.pathname, search: query });
+
+export const stringifyQuery = (filters, key, value) => qs.stringify({ ...filters, [key]: value }, { skipNull: true });
 
 export const parsedQuery = history => qs.parse(history.location.search, { parseNumbers: true });
 
