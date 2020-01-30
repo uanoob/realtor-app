@@ -33,7 +33,7 @@ const FilterBoard = ({ setFilters, filters, getCurrencyUSD, getCurrencyEUR }) =>
 
   const showSelectionBoard = filters.room || filters.priceMin || filters.priceMax || filters.rating;
   return (
-    <div className='bg-white p-2 text-left'>
+    <div className='card bg-white mb-3 p-2 text-left'>
       <div className='mb-3'>
         <h4>Валюта</h4>
         <CurrencyBoard
